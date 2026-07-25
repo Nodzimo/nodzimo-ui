@@ -203,11 +203,16 @@ inner composition. Generated flags stay `aria-hidden`; the adjacent language lab
 is explicit styling inherited from the adapted shadcn-style implementation, not missing consumer CSS. Changing the
 default to an opaque NUI surface remains a separate visual-system decision.
 
-`SelectTrigger` and `SelectItem` currently give descendant SVGs without a class containing `size-` a square `size-4`
-CSS box. Explicit `h-*` and `w-*` classes alone do not bypass that selector. The language story intentionally exercises
-the existing contract instead of changing component-wide SVG sizing. If a future usage requires an explicitly
-rectangular 4:3 layout box, change the selector contract in a separate Select styling decision rather than hiding it in
-flag-specific component API.
+`SelectTrigger` and `SelectItem` give descendant SVGs without a class containing `size-` a square `size-4` layout box.
+The generated flags keep their 4:3 `viewBox`, and the browser's default `preserveAspectRatio="xMidYMid meet"` therefore
+renders the flag artwork centered and undistorted inside that square. At the current rem baseline, a `16x16` SVG box
+contains `16x12` artwork rather than a stretched `16x16` flag. The unused vertical viewport space is intentional and
+helps flags align with square interface icons in the same control.
+
+This shared square layout is the current preferred contract. Do not add source dimensions, flag-specific props, or usage
+classes merely to eliminate that space. A rectangular 4:3 SVG layout box is a plan B only when a product explicitly
+requires the artwork to fill its entire layout footprint; make that a separate Select styling decision and verify mixed
+icon alignment instead of hiding it in the flag component API.
 
 Select is a form control even when it is not rendered inside a `<form>`, so it must have an accessible name. A visible
 label is optional. When the design has no visible label, provide a localized `aria-label` on `SelectTrigger`; the

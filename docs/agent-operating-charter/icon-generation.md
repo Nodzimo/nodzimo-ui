@@ -89,8 +89,11 @@
   `arab-league-flag-icon.svg`. Do not expose ISO-code filenames as the project API. The generated public component name
   follows mechanically as `UnitedStatesFlagIcon` or `ArabLeagueFlagIcon`.
 - Leave flag-source `width` and `height` unset. The flag profile deliberately omits `icon: true`, so SVGR does not
-  impose square `1em` dimensions. Until the profile intentionally defines shared dimensions, each usage owns rendered
-  size through SVG props or CSS while the 4:3 `viewBox` owns aspect ratio.
+  impose square `1em` dimensions. Each usage owns the outer SVG size through props or CSS, while the 4:3 `viewBox` owns
+  the artwork's aspect ratio. When a usage gives the SVG a square layout box, the browser's default
+  [`preserveAspectRatio="xMidYMid meet"`](https://www.w3.org/TR/SVG2/coords.html#PreserveAspectRatioAttribute) scales
+  the flag uniformly and centers it without stretching or cropping; the remaining vertical space belongs to the viewport
+  and is not part of the flag artwork.
 - For custom symbols that need independent color control per shape, keep a hand-authored component with separate SVG
   paths and explicit props. Do not rely on SVGR/SVGO to preserve same-colored sibling paths; optimization may merge
   them.
@@ -121,6 +124,9 @@
   is the deliberate Storybook-inventory exception described in
   [Internal Package Imports](internal-package-imports.md); component stories should still consume icons through the
   aggregate `#core` surface.
+- Keep flag previews in the gallery's shared square icon layout. A 4:3 flag remains centered and undistorted inside that
+  box, while the common footprint aligns it consistently with square interface icons. Do not add flag-only dimensions
+  merely to remove the expected vertical space.
 - Derive human-readable labels from component names instead of maintaining a parallel label table. Check the ordered
   postfixes `FlagIcon` and `Icon` from most specific to least specific, so `UnitedStatesFlagIcon` becomes
   `United States` rather than `United States Flag`.
