@@ -49,9 +49,9 @@ type LanguageOptions = readonly LanguageOption[]
 const EUROPEAN_LANGUAGES = [
 	{ FlagIcon: UnitedStatesFlagIcon, label: 'English', value: 'en' },
 	{ FlagIcon: GermanyFlagIcon, label: 'German', value: 'de' },
-	{ FlagIcon: SpainFlagIcon, label: 'Spanish', value: 'es' },
 	{ FlagIcon: FranceFlagIcon, label: 'French', value: 'fr' },
 	{ FlagIcon: ItalyFlagIcon, label: 'Italian', value: 'it' },
+	{ FlagIcon: SpainFlagIcon, label: 'Spanish', value: 'es' },
 ] as const satisfies LanguageOptions
 
 const SLAVIC_LANGUAGES = [
@@ -60,22 +60,22 @@ const SLAVIC_LANGUAGES = [
 	{ FlagIcon: UkraineFlagIcon, label: 'Ukrainian', value: 'uk' },
 ] as const satisfies LanguageOptions
 
-const ASIAN_LANGUAGES = [
-	{ FlagIcon: ChinaFlagIcon, label: 'Chinese', value: 'zh' },
-	{ FlagIcon: JapanFlagIcon, label: 'Japanese', value: 'ja' },
-] as const satisfies LanguageOptions
-
 const ARABIC_LANGUAGE = {
 	FlagIcon: ArabLeagueFlagIcon,
 	label: 'Arabic',
 	value: 'ar',
 } as const satisfies LanguageOption
 
+const ASIAN_LANGUAGES = [
+	{ FlagIcon: ChinaFlagIcon, label: 'Chinese', value: 'zh' },
+	{ FlagIcon: JapanFlagIcon, label: 'Japanese', value: 'ja' },
+] as const satisfies LanguageOptions
+
 const LANGUAGES = [
 	...EUROPEAN_LANGUAGES,
 	...SLAVIC_LANGUAGES,
-	...ASIAN_LANGUAGES,
 	ARABIC_LANGUAGE,
+	...ASIAN_LANGUAGES,
 ] as const satisfies LanguageOptions
 
 const LANGUAGE_ITEMS = [
@@ -201,7 +201,7 @@ const meta = {
 					size={triggerSize}
 				>
 					<SelectValue>
-						{(value: string) => {
+						{(value: string | null) => {
 							const language = LANGUAGES.find((language) => {
 								return language.value === value
 							})
@@ -257,6 +257,17 @@ const meta = {
 					</SelectGroup>
 					<SelectSeparator />
 					<SelectGroup>
+						<SelectLabel>Middle Eastern</SelectLabel>
+						<SelectItem
+							className={'*:items-center'}
+							value={ARABIC_LANGUAGE.value}
+						>
+							<ARABIC_LANGUAGE.FlagIcon />
+							{ARABIC_LANGUAGE.label}
+						</SelectItem>
+					</SelectGroup>
+					<SelectSeparator />
+					<SelectGroup>
 						<SelectLabel>East Asian</SelectLabel>
 						{ASIAN_LANGUAGES.map(({ FlagIcon, value, label }) => (
 							<SelectItem
@@ -268,17 +279,6 @@ const meta = {
 								{label}
 							</SelectItem>
 						))}
-					</SelectGroup>
-					<SelectSeparator />
-					<SelectGroup>
-						<SelectLabel>Middle Eastern</SelectLabel>
-						<SelectItem
-							className={'*:items-center'}
-							value={ARABIC_LANGUAGE.value}
-						>
-							<ARABIC_LANGUAGE.FlagIcon />
-							{ARABIC_LANGUAGE.label}
-						</SelectItem>
 					</SelectGroup>
 				</SelectContent>
 			</Select>
