@@ -21,17 +21,19 @@
 ### Icons
 
 - Raw icon SVG inputs live under `assets/icons`, grouped by source or category such as `lucide`, `brand`, or `custom`.
+- Raw flag-icon SVG inputs live separately under `assets/flags` because they use a non-square SVGR profile.
 - Generated icon components live under `src/core/icons/generated`. Treat this directory as generator-owned output:
   delete and regenerate it instead of hand-editing component implementation details. Small IDE-only suppressions in
   generated barrels are an accepted workaround when WebStorm cannot understand generated re-export usage.
+- Generated flag-icon components live under `src/core/icons/generated/flags` and remain part of the common icon public
+  surface.
 - Hand-authored special icons that need a custom React API, such as the two-color `NodzimoSymbolIcon`, belong outside
-  `src/core/icons/generated` and should not keep their source SVG under `assets/icons`, because `build:icons` treats
-  that folder as SVGR input.
+  `src/core/icons/generated` and should not keep their source SVG under either automated SVGR input directory.
 - `src/core/icons/index.ts` is the hand-authored icon public surface inside core and should re-export generated icon
   groups intentionally.
 - Storybook iconography pages are design-system showcase inventory, not colocated stories for individual icon
   components. Put icon set galleries and their typed display helpers under `.storybook/showcase`, import real icon
-  surfaces from `#core/icons/*`, and keep generated/runtime icon code under `src/core/icons`.
+  category surfaces from `#core/icons/*`, and keep generated/runtime icon code under `src/core/icons`.
 
 For generation details, see [Icon Generation](icon-generation.md).
 

@@ -11,8 +11,8 @@
 
 - `bun run dev` starts the regular Vite dev server.
 - `bun run preview` starts Vite preview for the built Vite app output.
-- `bun run build:icons` regenerates icon components from `assets/icons` through SVGR and applies the project's Biome
-  fix flow to the generated output.
+- `bun run build:icons` regenerates interface icons from `assets/icons` and flag icons from `assets/flags` through their
+  focused SVGR profiles, then applies the project's Biome fix flow to the generated output.
 - `bun run build` runs TypeScript project checks and Vite library build.
 - `bun run build:ts` runs TypeScript project checks via `tsc --build`.
 - `bun run build:ts-watch` watches TypeScript project checks.
@@ -33,8 +33,8 @@
 - `bun run storybook:build-docs` builds the docs-focused static Storybook output.
 - `bun run storybook:serve` serves the already-built `storybook-static` directory through `bunx http-server` for
   production-like local runtime checks. `http-server` is intentionally invoked through `bunx` instead of being pinned in
-  `devDependencies` while the published package is stale; revisit this if the package is actively maintained again.
-  Keep `-c-1` because `http-server` does not support a long `--cache -1` flag in the tested version.
+  `devDependencies` while the published package is stale; revisit this if the package is actively maintained again. Keep
+  `-c-1` because `http-server` does not support a long `--cache -1` flag in the tested version.
 - `bun run storybook:preview` runs the public static Storybook build and then serves `storybook-static`. Use this when a
   bug appears only after deployment or production build; the dev server is not enough for those incidents.
 - `bun run storybook:test` runs the Storybook Vitest browser test project.
@@ -42,8 +42,8 @@
 
 ### Package Scripts
 
-- `bun run lib:pack` only packs the current build output as `ui.tgz`; it intentionally does not build. Use it
-  after `build:all` or through `project:verify`.
+- `bun run lib:pack` only packs the current build output as `ui.tgz`; it intentionally does not build. Use it after
+  `build:all` or through `project:verify`.
 - `bun run lib:link` and `bun run lib:unlink` run Bun's local package link helpers. Prefer published package or tarball
   testing for Next/Turbopack consumers; see [Local Consumer Testing](local-consumer-testing.md).
 
