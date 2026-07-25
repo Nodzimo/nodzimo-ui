@@ -11,6 +11,14 @@
     - `icons.cjs` adds `icon: true` and writes interface icons to `src/core/icons/generated`.
     - `flags.cjs` leaves SVGR's default `icon: false` implicit and writes flag icons to
       `src/core/icons/generated/flags`.
+- Keep the shared config and its profiles as `.cjs` while they compose plain objects with `module.exports` and
+  synchronous relative `require`. The package is ESM through `"type": "module"`, so `.cjs` is the explicit CommonJS
+  boundary rather than an SVGR requirement. Keep the full `.cjs` extension in
+  `require('../../svgr.config.cjs')`: Node only adds `.js`, `.json`, and `.node` while resolving an extensionless
+  CommonJS file. See the
+  [Node.js package module rules](https://nodejs.org/api/packages.html#determining-module-system),
+  [CommonJS file-module resolution](https://nodejs.org/api/modules.html#file-modules), and
+  [SVGR configuration-file contract](https://react-svgr.com/docs/configuration-files/).
 - Keep source directories as positional SVGR CLI inputs. `outDir` belongs to each profile, but SVGR does not provide an
   equivalent config property for the input directory. `--config-file` is a real named CLI option and requires its
   hyphens; the following source directory is positional and does not need a `--` separator.
@@ -95,3 +103,17 @@
 - Flag icons are a generated icon category, not a separate top-level component family. Keep their generated files under
   `src/core/icons/generated/flags`, re-export them through `src/core/icons`, and include them in the common Storybook
   iconography gallery.
+
+### Iconography Gallery
+
+- Import each generated category as a focused namespace when the gallery must discover every member automatically. This
+  is the deliberate Storybook-inventory exception described in
+  [Internal Package Imports](internal-package-imports.md); component stories should still consume icons through the
+  aggregate `#core` surface.
+- Derive human-readable labels from component names instead of maintaining a parallel label table. Check the ordered
+  postfixes `FlagIcon` and `Icon` from most specific to least specific, so `UnitedStatesFlagIcon` becomes
+  `United States` rather than `United States Flag`.
+- Strip a postfix only when the component name contains text before it. A component literally named `FlagIcon`
+  therefore keeps the useful label `Flag` instead of becoming empty.
+- Split PascalCase boundaries and the boundary between a letter and a following digit. This preserves established labels
+  such as `Trash2Icon` -> `Trash 2` while also handling generated flag names consistently.

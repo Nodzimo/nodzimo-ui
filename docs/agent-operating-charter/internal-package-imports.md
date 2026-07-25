@@ -22,6 +22,9 @@
   for path brevity.
 - Use `#core/icons` when runtime component implementations need generated project-owned icons. Avoid importing icons
   through `#core` there, because the aggregate barrel can create dependency cycles.
+- A Storybook inventory helper that must enumerate every export in one generated icon category may import that focused
+  category as a namespace, for example `#core/icons/generated/flags`. This is gallery infrastructure, not a colocated
+  consumer story: Button and Select stories should continue to exercise icons through `#core`.
 - Inside one component folder, prefer relative imports such as `./button-variants`; do not route local implementation
   details through `#client` or `#core`.
 - Colocated stories and tests that sit beside a component folder `index.ts` may import the component through the local
