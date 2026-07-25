@@ -93,7 +93,7 @@
 		"build:all": "bun run build:icons && bun run build && bun run build:css",
 		"build:css": "tailwindcss --input src/styles.css --output dist/styles.css --minify",
 		"build:css-watch": "bun run build:css --watch",
-		"build:icons": "svgr assets/icons && bun run check:fix-unsafe",
+		"build:icons": "svgr --config-file config/svgr/icons.cjs assets/icons && svgr --config-file config/svgr/flags.cjs assets/flags && bun run check:fix-unsafe",
 		"build:js": "vite build",
 		"build:js-watch": "bun run build:js --watch",
 		"build:ts": "tsc --build",
