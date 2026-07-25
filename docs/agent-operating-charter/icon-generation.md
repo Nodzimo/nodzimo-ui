@@ -44,8 +44,7 @@
 - The flag source of truth is the MIT-licensed
   [`lipis/flag-icons`](https://github.com/lipis/flag-icons) repository. The current project snapshot was copied from
   [`v7.5.0/flags/4x3`](https://github.com/lipis/flag-icons/tree/v7.5.0/flags/4x3); record a new tagged snapshot here
-  before importing future flags. Preserve the vendored source's copyright and license notice in
-  [Flag Icons License](../licenses/flag-icons.md).
+  before importing future flags.
 - Vendor only the SVG files required by supported product locales. Do not install the complete `flag-icons` runtime
   package or its CSS, and do not make consumers depend on FlagCDN, Shadcn Studio assets, or another HTTP service. The
   fixed locale set is small, while local components remain offline, versioned, reviewable, and independent of network
