@@ -1,6 +1,20 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ComponentProps, ComponentType } from 'react'
+import {
+	ArabLeagueFlagIcon,
+	BelarusFlagIcon,
+	ChinaFlagIcon,
+	FranceFlagIcon,
+	GermanyFlagIcon,
+	ItalyFlagIcon,
+	JapanFlagIcon,
+	RussiaFlagIcon,
+	SpainFlagIcon,
+	UkraineFlagIcon,
+	UnitedStatesFlagIcon,
+} from '#core'
 import {
 	STRING_UNION_SUMMARY,
 	UNION_SEPARATOR,
@@ -15,62 +29,59 @@ import {
 	SelectGroup,
 	SelectItem,
 	SelectLabel,
+	type SelectOption,
+	type SelectOptions,
 	type SelectProps,
+	SelectSeparator,
 	SelectTrigger,
 	type SelectTriggerProps,
 	SelectValue,
 } from '.'
 
-const NORTH_AMERICA = [
-	{ label: 'Eastern Standard Time', value: 'est' },
-	{ label: 'Central Standard Time', value: 'cst' },
-	{ label: 'Mountain Standard Time', value: 'mst' },
-	{ label: 'Pacific Standard Time', value: 'pst' },
-	{ label: 'Alaska Standard Time', value: 'akst' },
-	{ label: 'Hawaii Standard Time', value: 'hst' },
-] as const
+const LANGUAGE_PLACEHOLDER = 'Select a language'
 
-const EUROPE_AFRICA = [
-	{ label: 'Greenwich Mean Time', value: 'gmt' },
-	{ label: 'Central European Time', value: 'cet' },
-	{ label: 'Eastern European Time', value: 'eet' },
-	{ label: 'Western European Summer Time', value: 'west' },
-	{ label: 'Central Africa Time', value: 'cat' },
-	{ label: 'East Africa Time', value: 'eat' },
-] as const
+type LanguageOption = SelectOption<string> & {
+	FlagIcon: ComponentType<ComponentProps<'svg'>>
+}
 
-const ASIA = [
-	{ label: 'Moscow Time', value: 'msk' },
-	{ label: 'India Standard Time', value: 'ist' },
-	{ label: 'China Standard Time', value: 'cst_china' },
-	{ label: 'Japan Standard Time', value: 'jst' },
-	{ label: 'Korea Standard Time', value: 'kst' },
-	{ label: 'Indonesia Central Standard Time', value: 'ist_indonesia' },
-] as const
+type LanguageOptions = readonly LanguageOption[]
 
-const AUSTRALIA_PACIFIC = [
-	{ label: 'Australian Western Standard Time', value: 'awst' },
-	{ label: 'Australian Central Standard Time', value: 'acst' },
-	{ label: 'Australian Eastern Standard Time', value: 'aest' },
-	{ label: 'New Zealand Standard Time', value: 'nzst' },
-	{ label: 'Fiji Time', value: 'fjt' },
-] as const
+const EUROPEAN_LANGUAGES = [
+	{ FlagIcon: UnitedStatesFlagIcon, label: 'English', value: 'en' },
+	{ FlagIcon: GermanyFlagIcon, label: 'German', value: 'de' },
+	{ FlagIcon: SpainFlagIcon, label: 'Spanish', value: 'es' },
+	{ FlagIcon: FranceFlagIcon, label: 'French', value: 'fr' },
+	{ FlagIcon: ItalyFlagIcon, label: 'Italian', value: 'it' },
+] as const satisfies LanguageOptions
 
-const SOUTH_AMERICA = [
-	{ label: 'Argentina Time', value: 'art' },
-	{ label: 'Bolivia Time', value: 'bot' },
-	{ label: 'Brasilia Time', value: 'brt' },
-	{ label: 'Chile Standard Time', value: 'clt' },
-] as const
+const SLAVIC_LANGUAGES = [
+	{ FlagIcon: RussiaFlagIcon, label: 'Russian', value: 'ru' },
+	{ FlagIcon: BelarusFlagIcon, label: 'Belarusian', value: 'be' },
+	{ FlagIcon: UkraineFlagIcon, label: 'Ukrainian', value: 'uk' },
+] as const satisfies LanguageOptions
 
-const ITEMS = [
-	{ label: 'Select a timezone', value: null },
-	...NORTH_AMERICA,
-	...EUROPE_AFRICA,
-	...ASIA,
-	...AUSTRALIA_PACIFIC,
-	...SOUTH_AMERICA,
-] as const
+const ASIAN_LANGUAGES = [
+	{ FlagIcon: ChinaFlagIcon, label: 'Chinese', value: 'zh' },
+	{ FlagIcon: JapanFlagIcon, label: 'Japanese', value: 'ja' },
+] as const satisfies LanguageOptions
+
+const ARABIC_LANGUAGE = {
+	FlagIcon: ArabLeagueFlagIcon,
+	label: 'Arabic',
+	value: 'ar',
+} as const satisfies LanguageOption
+
+const LANGUAGES = [
+	...EUROPEAN_LANGUAGES,
+	...SLAVIC_LANGUAGES,
+	...ASIAN_LANGUAGES,
+	ARABIC_LANGUAGE,
+] as const satisfies LanguageOptions
+
+const LANGUAGE_ITEMS = [
+	{ label: LANGUAGE_PLACEHOLDER, value: null },
+	...LANGUAGES,
+] as const satisfies SelectOptions<string | null>
 
 const SELECT_DEFAULTS = {
 	contentAlign: SELECT_CONTENT_ALIGNS[1],
@@ -182,13 +193,33 @@ const meta = {
 		...restArgs
 	}) => {
 		return (
-			<Select items={ITEMS} {...restArgs}>
+			<Select items={LANGUAGE_ITEMS} {...restArgs}>
 				<SelectTrigger
 					aria-invalid={triggerAriaInvalid}
-					className={'w-64'}
+					aria-label={'Language'}
+					className={'w-40'}
 					size={triggerSize}
 				>
-					<SelectValue />
+					<SelectValue>
+						{(value: string) => {
+							const language = LANGUAGES.find((language) => {
+								return language.value === value
+							})
+
+							if (!language) {
+								return LANGUAGE_PLACEHOLDER
+							}
+
+							const { FlagIcon, label } = language
+
+							return (
+								<span className={'flex items-center gap-2'}>
+									<FlagIcon />
+									{label}
+								</span>
+							)
+						}}
+					</SelectValue>
 				</SelectTrigger>
 				<SelectContent
 					align={contentAlign}
@@ -198,44 +229,56 @@ const meta = {
 					sideOffset={contentSideOffset}
 				>
 					<SelectGroup>
-						<SelectLabel>North America</SelectLabel>
-						{NORTH_AMERICA.map(({ value, label }) => (
-							<SelectItem key={value} value={value}>
+						<SelectLabel>Western European</SelectLabel>
+						{EUROPEAN_LANGUAGES.map(({ FlagIcon, value, label }) => (
+							<SelectItem
+								className={'*:items-center'}
+								key={value}
+								value={value}
+							>
+								<FlagIcon />
 								{label}
 							</SelectItem>
 						))}
 					</SelectGroup>
+					<SelectSeparator />
 					<SelectGroup>
-						<SelectLabel>Europe & Africa</SelectLabel>
-						{EUROPE_AFRICA.map(({ value, label }) => (
-							<SelectItem key={value} value={value}>
+						<SelectLabel>East Slavic</SelectLabel>
+						{SLAVIC_LANGUAGES.map(({ FlagIcon, value, label }) => (
+							<SelectItem
+								className={'*:items-center'}
+								key={value}
+								value={value}
+							>
+								<FlagIcon />
 								{label}
 							</SelectItem>
 						))}
 					</SelectGroup>
+					<SelectSeparator />
 					<SelectGroup>
-						<SelectLabel>Asia</SelectLabel>
-						{ASIA.map(({ value, label }) => (
-							<SelectItem key={value} value={value}>
+						<SelectLabel>East Asian</SelectLabel>
+						{ASIAN_LANGUAGES.map(({ FlagIcon, value, label }) => (
+							<SelectItem
+								className={'*:items-center'}
+								key={value}
+								value={value}
+							>
+								<FlagIcon />
 								{label}
 							</SelectItem>
 						))}
 					</SelectGroup>
+					<SelectSeparator />
 					<SelectGroup>
-						<SelectLabel>Australia & Pacific</SelectLabel>
-						{AUSTRALIA_PACIFIC.map(({ value, label }) => (
-							<SelectItem key={value} value={value}>
-								{label}
-							</SelectItem>
-						))}
-					</SelectGroup>
-					<SelectGroup>
-						<SelectLabel>South America</SelectLabel>
-						{SOUTH_AMERICA.map(({ value, label }) => (
-							<SelectItem key={value} value={value}>
-								{label}
-							</SelectItem>
-						))}
+						<SelectLabel>Middle Eastern</SelectLabel>
+						<SelectItem
+							className={'*:items-center'}
+							value={ARABIC_LANGUAGE.value}
+						>
+							<ARABIC_LANGUAGE.FlagIcon />
+							{ARABIC_LANGUAGE.label}
+						</SelectItem>
 					</SelectGroup>
 				</SelectContent>
 			</Select>
