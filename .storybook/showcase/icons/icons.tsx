@@ -1,5 +1,6 @@
 import { IconGallery, IconItem } from '@storybook/addon-docs/blocks'
 import type { ComponentType, SVGProps } from 'react'
+import * as flagIcons from '#core/icons/generated/flags'
 import * as lucideIcons from '#core/icons/generated/lucide'
 import { mcn } from '#lib'
 
@@ -36,13 +37,15 @@ const SPINNABLE_ICONS = {
 	SunIcon,
 } satisfies IconGroup
 
-const ICON_POSTFIX = 'Icon'
+const ICON_POSTFIXES = ['FlagIcon', 'Icon'] as const
 const ICON_LABEL_PART_PATTERN = /(?=[A-Z])|(?<=[A-Za-z])(?=\d)/
 
 function getIconLabel(name: string) {
-	const nameWithoutPostfix = name.endsWith(ICON_POSTFIX)
-		? name.slice(0, -ICON_POSTFIX.length)
-		: name
+	const postfix = ICON_POSTFIXES.find((postfix) => {
+		return name.length > postfix.length && name.endsWith(postfix)
+	})
+
+	const nameWithoutPostfix = postfix ? name.slice(0, -postfix.length) : name
 
 	return nameWithoutPostfix.split(ICON_LABEL_PART_PATTERN).join(' ')
 }
@@ -99,6 +102,10 @@ function renderIconGallery(
 
 export function LucideIcons() {
 	return renderIconGallery(lucideIcons)
+}
+
+export function FlagIcons() {
+	return renderIconGallery(flagIcons)
 }
 
 export function FillableIcons() {
