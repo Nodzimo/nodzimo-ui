@@ -19,16 +19,16 @@ Base UI 1.6.0 has two distinct parts:
 
 Base UI explicitly requires every Select to have an accessible name and recommends either its root `Select.Label` or a
 localized `aria-label` on `Select.Trigger` when no visible label is rendered. The current NUI barrel does not expose the
-root Label part, and the representative Select story neither renders one nor passes an explicit `aria-label` to
-`SelectTrigger`. The selected value communicates state, not the stable purpose of the control.
+root Label part. The representative Select story now demonstrates the visually unlabeled path with
+`aria-label="Language"`; the selected value still communicates state, not the stable purpose of the control.
 
 This is not a defect in the copied shadcn component. shadcn deliberately names its popup group wrapper `SelectLabel`,
 places it under `SelectGroup`, and demonstrates an external `FieldLabel` for a visible form label. That is coherent
 within the complete shadcn component suite. NUI does not currently provide a `Field` component, so copying that API
 leaves no NUI-owned visible-label path and creates a naming collision if the Base UI root Label is added later.
 
-The unresolved concern is therefore the public NUI labeling contract, not the implementation of the existing
-`SelectLabel`.
+The remaining concern is therefore the public visible-label contract, not the implementation of the existing
+`SelectLabel` or the already-valid trigger workaround.
 
 ## Current workaround
 

@@ -58,7 +58,8 @@ the upstream `any`.
 ### Rich Option Metadata
 
 Extend `SelectOption<Value>` locally when a consumer needs metadata beyond `label` and `value`. Keep the public Select
-type focused instead of adding every consumer field to the library contract:
+type focused instead of adding every consumer field to the library contract. Flags therefore require no change to the
+Select component or its public option types:
 
 ```text
 import {ArabLeagueFlagIcon} from '@nodzimo/ui'
@@ -94,6 +95,10 @@ const LANGUAGE_ITEMS = [
 `ReactElement` instead only when the receiving contract intentionally stores an already-created node such as
 `<UnitedStatesFlagIcon />`. `as const satisfies` is useful here: `as const` preserves readonly locale literals, while
 `satisfies` validates the consumer extension without widening it to the target type.
+
+The PascalCase `FlagIcon` field is intentional because the retrieved value is rendered as a React component. A singleton
+option such as Arabic may remain one `LanguageOption` object and be rendered explicitly; do not introduce a one-element
+array solely to make every group use `map`.
 
 Keep `null` out of `LanguageOption`: it represents the Select placeholder/clearable state, not a language. Add it only
 to the aggregate `SelectOptions<string | null>` collection. Extra metadata remains structurally compatible with

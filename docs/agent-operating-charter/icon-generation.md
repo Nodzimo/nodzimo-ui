@@ -22,9 +22,16 @@
 - Keep source directories as positional SVGR CLI inputs. `outDir` belongs to each profile, but SVGR does not provide an
   equivalent config property for the input directory. `--config-file` is a real named CLI option and requires its
   hyphens; the following source directory is positional and does not need a `--` separator.
+- Set the flag profile's `outDir` directly to `src/core/icons/generated/flags`. SVGR preserves directories nested inside
+  the source tree, but it does not reproduce the positional source root itself: an `assets/flags` input with
+  `src/core/icons/generated` as its output would write the flag files directly into `generated`, not create the desired
+  `generated/flags` category.
 - `bun run build:icons` runs the interface-icon profile over `assets/icons` and the flag-icon profile over
-  `assets/flags`, writes both sets under `src/core/icons/generated`, and then runs the project's Biome fix flow so
-  generated output follows local formatting.
+  `assets/flags`, writes both sets under `src/core/icons/generated`, and then runs the repository-wide unsafe Biome fix
+  flow. That final command is not scoped to generated files; inspect the complete worktree after running it.
+- SVGR overwrites and creates output but does not prune components whose source SVG was removed or renamed. Delete the
+  corresponding stale generated file, or the affected generated category, before regeneration and verify its generated
+  `index.ts`. Never hand-edit generated component content.
 - Keep the custom SVGR component template while this project uses SVGR 8 with Babel 8. SVGR 8 has no newer stable, beta,
   or alpha line for Babel 8 support, and its default TypeScript output can lose the generic in
   `SVGProps<SVGSVGElement>` when generated through the mixed Babel 7/8 toolchain. The template is the narrow fix: it
@@ -37,7 +44,8 @@
 - The flag source of truth is the MIT-licensed
   [`lipis/flag-icons`](https://github.com/lipis/flag-icons) repository. The current project snapshot was copied from
   [`v7.5.0/flags/4x3`](https://github.com/lipis/flag-icons/tree/v7.5.0/flags/4x3); record a new tagged snapshot here
-  before importing future flags.
+  before importing future flags. Preserve the vendored source's copyright and license notice in
+  [Flag Icons License](../licenses/flag-icons.md).
 - Vendor only the SVG files required by supported product locales. Do not install the complete `flag-icons` runtime
   package or its CSS, and do not make consumers depend on FlagCDN, Shadcn Studio assets, or another HTTP service. The
   fixed locale set is small, while local components remain offline, versioned, reviewable, and independent of network
@@ -92,6 +100,10 @@
 
 - Generated icon components belong in `src/core` and are RSC-safe only when they remain plain SVG components: no hooks,
   no `'use client'`, no `memo`, no `forwardRef`, and no runtime icon package imports.
+- A flag becomes a React component for package delivery and composition, not because its finished artwork needs
+  component state or recoloring. The wrapper gives consumers one typed JSX import from the existing RSC-safe icon
+  surface, accepts ordinary SVG props, and renders offline inline markup without a URL request. Keep the flag's authored
+  colors and geometry intact.
 - Generated icons are decorative by default when their raw source carries `aria-hidden="true"`. If a usage needs an
   accessible name, put that name on the containing control or write a focused custom icon component instead of enabling
   SVGR `titleProp` globally.
