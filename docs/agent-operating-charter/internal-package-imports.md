@@ -20,8 +20,8 @@
   `*.stories.*` files are excluded from production entrypoints. It does make Storybook traverse that public barrel,
   which is useful for integration coverage but can expose cycles or boundary leaks; choose it deliberately rather than
   for path brevity.
-- Use `#core/icons` when core components need generated project-owned icons from another core area. Avoid importing
-  icons through `#core`, because the aggregate barrel can create dependency cycles.
+- Use `#core/icons` when runtime component implementations need generated project-owned icons. Avoid importing icons
+  through `#core` there, because the aggregate barrel can create dependency cycles.
 - Inside one component folder, prefer relative imports such as `./button-variants`; do not route local implementation
   details through `#client` or `#core`.
 - Colocated stories and tests that sit beside a component folder `index.ts` may import the component through the local

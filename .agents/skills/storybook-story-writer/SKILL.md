@@ -16,6 +16,8 @@ Read only the files relevant to the touched surface:
 
 - Component story budgets, controls, CVA/docgen limits, story-only args, and CSF guidance:
   `docs/agent-operating-charter/storybook-story-writing.md`
+- Supporting public-barrel and focused runtime import paths:
+  `docs/agent-operating-charter/internal-package-imports.md`
 - For a complex shadcn/Base UI compound component, staged porting and Storybook handoff rules:
   `docs/agent-operating-charter/shadcn-component-adaptation.md`
 - Storybook folders, addons, source globs, story sorting, and preview CSS entrypoint:
@@ -69,7 +71,9 @@ Use `references/story-patterns.md` for compact story shape examples and control 
       independently.
 
 5. Keep story-only code inside Storybook boundaries.
-    - Use project-owned generated icons from `#core/icons` for story composition; do not add third-party icon packages
+    - Follow `docs/agent-operating-charter/internal-package-imports.md` for supporting icons. Colocated consumer stories
+      such as Button and Select use `#core` when they intentionally exercise the root public barrel; runtime component
+      implementations use the focused `#core/icons` path to avoid aggregate cycles. Do not add third-party icon packages
       only for stories.
     - Story-only imports may use Storybook utilities such as `storybook/test`; dependency graph rules should exclude
       `*.stories.*` from production dependency checks.
