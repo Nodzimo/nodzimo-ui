@@ -1,0 +1,15 @@
+import type { JSX } from 'react'
+
+const SvgRussiaFlagIcon = (props: JSX.IntrinsicElements['svg']) => (
+	<svg
+		aria-hidden='true'
+		viewBox='0 0 640 480'
+		xmlns='http://www.w3.org/2000/svg'
+		{...props}
+	>
+		<path d='M0 0h640v160H0z' fill='#fff' />
+		<path d='M0 160h640v160H0z' fill='#0039a6' />
+		<path d='M0 320h640v160H0z' fill='#d52b1e' />
+	</svg>
+)
+export default SvgRussiaFlagIcon
