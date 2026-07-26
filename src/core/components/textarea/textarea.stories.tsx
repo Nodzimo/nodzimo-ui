@@ -47,7 +47,7 @@ const meta = {
 		},
 	},
 	component: Textarea,
-	title: 'Client/Components/Textarea',
+	title: 'Core/Components/Textarea',
 } satisfies Meta<typeof Textarea>
 
 export default meta
