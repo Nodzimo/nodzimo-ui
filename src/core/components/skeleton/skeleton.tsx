@@ -1,14 +1,16 @@
 import type { ComponentProps } from 'react'
 import { mcn } from '#lib'
 
-function Skeleton({ className, ...restProps }: ComponentProps<'div'>) {
+type SkeletonProps = ComponentProps<'div'>
+
+function Skeleton({ className, ...restProps }: SkeletonProps) {
 	return (
 		<div
-			className={mcn('animate-pulse rounded-md bg-muted', className)}
+			className={mcn('animate-pulse rounded-nui-md bg-nui-muted', className)}
 			data-slot={'skeleton'}
 			{...restProps}
 		/>
 	)
 }
 
-export { Skeleton }
+export { Skeleton, type SkeletonProps }
