@@ -10,7 +10,7 @@
 - Use `bun run build:all` after changing Vite config, package exports, type generation, source entrypoints, React
   Compiler scope, Tailwind styles, generated icons, or client/core boundaries.
 - Use `bun run storybook:build` after changing `.storybook/main.ts`, `.storybook/vite.config.ts`, Storybook addons,
-  `assets/storybook`, or deploy-facing Storybook metadata.
+  deploy-facing files under `assets`, or Storybook metadata.
 
 ### Storybook Runtime Checks
 
@@ -64,9 +64,9 @@
       Preflight plus needed story and preview utilities such as design-lab gaps, preview padding, and NUI foundation
       classes.
     - Compile an isolated Tailwind input with `source(none)`, import `@nodzimo/ui/theme.css`, and safelist
-      representative
-      consumer-only classes absent from package component source. Cover at least color, border/ring, radius, spacing,
-      opacity, interaction, and class-based dark forms such as `bg-nui-card`, `ring-nui-ring`, `rounded-nui-4xl`,
+      representative consumer-only classes absent from package component source. Cover at least color, border/ring,
+      radius, spacing, opacity, interaction, and class-based dark forms such as `bg-nui-card`, `ring-nui-ring`,
+      `rounded-nui-4xl`,
       `gap-nui-md`, `hover:bg-nui-accent/80`, and `dark:text-nui-sidebar-foreground`.
     - Confirm the consumer compiler accepts `@apply` with a mapped NUI utility. This catches the failure mode where raw
       `--nui-*` values ship but the consumer Tailwind compiler never receives the `@theme` mapping.
@@ -91,8 +91,8 @@
 
 ### Consumer Checks
 
-- For Next/Turbopack consumer checks, install the published `@nodzimo/ui` package in the Next app. Use tarball
-  testing only when validating changes before publication.
+- For Next/Turbopack consumer checks, install the published `@nodzimo/ui` package in the Next app. Use tarball testing
+  only when validating changes before publication.
 - For Tailwind consumers, confirm application globals import `tailwindcss` before `@nodzimo/ui/theme.css`, while the
   application root imports ready-built `@nodzimo/ui/styles.css` before its globals. Verify autocomplete and production
   output with at least one NUI utility not used in UI-kit component source.
@@ -103,5 +103,4 @@
 - If a core component fails in a Server Component context, check whether `react/compiler-runtime`, `createContext`,
   `useContext`, `@base-ui/react`, or inlined third-party React component code leaked into the root bundle.
 - When a dependency/config change affects root exports, verify both the library build and a Next/Turbopack consumer
-  build
-  that imports at least one core component and one affected component from the built package or tarball.
+  build that imports at least one core component and one affected component from the built package or tarball.

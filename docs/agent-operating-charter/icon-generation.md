@@ -22,6 +22,9 @@
 - Keep source directories as positional SVGR CLI inputs. `outDir` belongs to each profile, but SVGR does not provide an
   equivalent config property for the input directory. `--config-file` is a real named CLI option and requires its
   hyphens; the following source directory is positional and does not need a `--` separator.
+- Keep reusable project brand artwork that is not an input to the generated icon profiles under `assets/brand`. Do not
+  place it under `assets/icons`, because that directory is consumed wholesale by the interface-icon SVGR profile, and do
+  not give it a consumer-specific owner such as Storybook.
 - Set the flag profile's `outDir` directly to `src/core/icons/generated/flags`. SVGR preserves directories nested inside
   the source tree, but it does not reproduce the positional source root itself: an `assets/flags` input with
   `src/core/icons/generated` as its output would write the flag files directly into `generated`, not create the desired
@@ -55,9 +58,10 @@
 - Treat language-to-flag mapping as product metadata rather than a universal language standard. The current language
   story uses the United States flag for the product's English locale and the Arab League flag for Arabic to represent
   the broader Arabic-speaking world instead of one country.
-- Raw SVG files are repository source inputs, not a public static-file contract. The package currently delivers
-  generated React components; Storybook does not expose `assets/flags` under an HTTP route. Static delivery may be
-  designed separately without changing the component pipeline.
+- Raw SVG files remain repository source inputs for generated React components, while the deployed Storybook also
+  exposes the complete source tree at stable `/assets/...` paths for downloads and non-React consumers. This static
+  Storybook surface does not change the component-first runtime contract: package components must not depend on the
+  Storybook host or network availability, and raw assets are not included in the npm package by this decision.
 
 ### SVG Source Rules
 
