@@ -2,11 +2,21 @@ import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox'
 import { CheckIcon } from '#core/icons'
 import { mcn } from '#lib'
 
-function Checkbox({ className, ...restProps }: CheckboxPrimitive.Root.Props) {
+type CheckboxProps = CheckboxPrimitive.Root.Props
+
+function Checkbox({ className, ...restProps }: CheckboxProps) {
 	return (
 		<CheckboxPrimitive.Root
 			className={mcn(
-				'peer relative flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input outline-none transition-colors after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 group-has-disabled/field:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-primary data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground dark:bg-input/30 dark:data-checked:bg-primary dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
+				'peer relative flex size-4 shrink-0 items-center justify-center',
+				'rounded-nui-sm border border-nui-input outline-none transition-colors',
+				'after:absolute after:-inset-x-3 after:-inset-y-2',
+				'focus-visible:border-nui-ring focus-visible:ring-3 focus-visible:ring-nui-ring/50',
+				'disabled:cursor-not-allowed disabled:opacity-50',
+				'aria-invalid:border-nui-destructive aria-invalid:ring-3 aria-invalid:ring-nui-destructive/20 aria-invalid:aria-checked:border-nui-primary',
+				'data-checked:border-nui-primary data-checked:bg-nui-primary data-checked:text-nui-primary-foreground',
+				'dark:bg-nui-input/30 dark:data-checked:bg-nui-primary dark:aria-invalid:border-nui-destructive/50 dark:aria-invalid:ring-nui-destructive/40',
+				'group-has-disabled/field:opacity-50',
 				className,
 			)}
 			data-slot={'checkbox'}
@@ -24,4 +34,4 @@ function Checkbox({ className, ...restProps }: CheckboxPrimitive.Root.Props) {
 	)
 }
 
-export { Checkbox }
+export { Checkbox, type CheckboxProps }

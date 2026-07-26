@@ -53,6 +53,10 @@ final code is known. Small components may combine adjacent passes only when the 
 - Adapt semantic colors, radii, and intentional design-system spacing to NUI tokens.
 - Leave structural Tailwind utilities and incidental component geometry unchanged unless a separate design decision owns
   the change.
+- Do not accept a formatter suggestion such as `rounded-[4px]` to unprefixed `rounded-sm` merely because the current
+  pixel values match. Preserve the literal during source capture, then deliberately map it to an NUI radius such as
+  `rounded-nui-sm` when the final component shape should follow the theme; keep the literal only as an explicit fixed
+  geometry decision.
 - Treat a transparent popup, missing destructive color, or another suddenly unstyled semantic surface as a
   token-contract failure first. Copied utilities such as `bg-popover`, `text-popover-foreground`, and `text-destructive`
   have no NUI meaning until the token pass maps them to the prefixed contract; this is not evidence that the Base UI

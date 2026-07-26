@@ -98,6 +98,10 @@
   demonstrates uncontrolled typing, while a value control makes the story controlled and can produce invalid
   combinations such as assigning a non-empty value to `type="file"`. Add controlled state only when that behavior is
   itself the subject of the story.
+- Apply the same rule to toggle primitives. A `checked` control freezes ordinary Canvas interaction unless the story
+  deliberately synchronizes args, while `defaultChecked` is initial-only and becomes a misleading live control. Prefer
+  an uncontrolled clickable Canvas with an `onCheckedChange` spy; add a controlled story only when controlled behavior
+  itself is being documented.
 - Keep control descriptions as short interface fragments without terminal punctuation.
 - Do not copy `decorators`, `layout: 'padded'`, `h-full`, or preview sizing from a reference story without reproducing
   the layout need. Storybook's default Canvas already centers ordinary stories. Prefer minimal fixed preview geometry,
