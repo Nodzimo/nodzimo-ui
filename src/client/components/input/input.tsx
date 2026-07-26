@@ -2,7 +2,19 @@ import { Input as InputPrimitive } from '@base-ui/react/input'
 import type { ComponentProps } from 'react'
 import { mcn } from '#lib'
 
-function Input({ className, type, ...restProps }: ComponentProps<'input'>) {
+type InputProps = ComponentProps<'input'>
+
+const INPUT_SUPPORTED_TYPES = Object.freeze([
+	'text',
+	'email',
+	'tel',
+	'search',
+	'file',
+] as const satisfies readonly NonNullable<InputProps['type']>[])
+
+type InputSupportedType = (typeof INPUT_SUPPORTED_TYPES)[number]
+
+function Input({ className, type, ...restProps }: InputProps) {
 	return (
 		<InputPrimitive
 			className={mcn(
@@ -16,4 +28,9 @@ function Input({ className, type, ...restProps }: ComponentProps<'input'>) {
 	)
 }
 
-export { Input }
+export {
+	INPUT_SUPPORTED_TYPES,
+	Input,
+	type InputProps,
+	type InputSupportedType,
+}
