@@ -20,8 +20,12 @@
 
 ### Icons
 
-- Raw icon SVG inputs live under `assets/icons`, grouped by source or category such as `lucide`, `brand`, or `custom`.
+- Raw interface-icon SVG inputs live under `assets/icons`, grouped by generator-compatible source or category such as
+  `lucide`; the complete directory is an input to the interface-icon SVGR profile.
 - Raw flag-icon SVG inputs live separately under `assets/flags` because they use a non-square SVGR profile.
+- Reusable project brand artwork that is not an SVGR input lives under `assets/brand`. The deployed Storybook preserves
+  the complete `assets` tree under public `/assets/...` URLs, but the npm package continues to deliver generated or
+  hand-authored React components instead of raw asset files.
 - Generated icon components live under `src/core/icons/generated`. Treat this directory as generator-owned output:
   delete and regenerate it instead of hand-editing component implementation details. Small IDE-only suppressions in
   generated barrels are an accepted workaround when WebStorm cannot understand generated re-export usage.
