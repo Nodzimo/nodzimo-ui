@@ -2,9 +2,9 @@
 
 ### Source Of Truth
 
-- Read `docs/design-system-doctrine/README.md` and the relevant chapter files before changing theme colors, button
-  variants, interactive-state styling, or the meaning of theme tokens. They record the current Nodzimo design direction
-  and the reasoning behind it.
+- Read the [design-system doctrine index](../design-system-doctrine/README.md) and the relevant chapter files before
+  changing theme colors, button variants, interactive-state styling, or the meaning of theme tokens. They record the
+  current Nodzimo design direction and the reasoning behind it.
 - The doctrine is intentionally split for two surfaces: GitHub reads the Markdown `README.md` and chapter files, while
   Storybook uses `.storybook/showcase/doctrine.mdx` plus chapter MDX wrappers. Keep GitHub links as relative `.md`
   links, but use Storybook `./?path=/docs/...` links inside Storybook-only MDX overviews so navigation targets the
@@ -25,8 +25,8 @@ For token implementation rules, see [Theme Token Contract](theme-token-contract.
 - Treat light and dark themes as two intentional expressions of the same brand, not as a technical inversion:
     - Light theme: `Living Emerald`, internally nicknamed `Liverald`, with natural, confident, trustworthy,
       growth-oriented emerald energy.
-    - Dark theme: `Night Emerald`, internally nicknamed `Nimerald`, with neon emerald, Tokyo-night, electric,
-      technical, youthfully sharp energy.
+    - Dark theme: `Night Emerald`, internally nicknamed `Nimerald`, with neon emerald, Tokyo-night, electric, technical,
+      youthfully sharp energy.
 - Neutral base colors also follow this split: use an Olive-derived neutral base for light theme and a Stone-derived
   neutral base for dark theme. Olive supports the organic light direction; Stone avoids the heavy/military feel olive
   can take on in dark mode.
@@ -60,8 +60,7 @@ For token implementation rules, see [Theme Token Contract](theme-token-contract.
 
 - Current primary direction:
     - Light primary: `Living Emerald`, internally nicknamed `Liverald`, `oklch(0.55 0.19 151)` with light foreground.
-    - Dark primary: `Night Emerald`, internally nicknamed `Nimerald`, `oklch(0.82 0.26 145)` with dark
-      foreground.
+    - Dark primary: `Night Emerald`, internally nicknamed `Nimerald`, `oklch(0.82 0.26 145)` with dark foreground.
 - Use the paired brand line: `Living Emerald` is the brand in daylight; `Night Emerald` is the brand after dark. Design
   mantra: "In the day, it feels alive. At night, it glows."
 - Use the NUI intensity rhythm as a naming/review convention for recurring color and opacity modifiers:
@@ -70,8 +69,7 @@ For token implementation rules, see [Theme Token Contract](theme-token-contract.
     - `strong = 80`, written as slash opacity such as `hover:bg-nui-primary/80`.
 - Intensity rhythm names describe strength, not events. Do not introduce `hover`, `active`, or `pressed` tokens when a
   semantic color plus `/20`, `/50`, or `/80` expresses the treatment. Do not create CSS variables for these values
-  unless
-  Tailwind gains a clean named opacity API or repeated real usage proves a better implementation.
+  unless Tailwind gains a clean named opacity API or repeated real usage proves a better implementation.
 
 ### Button Hierarchy
 
@@ -96,8 +94,8 @@ For token implementation rules, see [Theme Token Contract](theme-token-contract.
     - `secondary` is an important action that participates in the current task and deserves a persistent filled surface.
     - `outline` is an available structural/lower-commitment action that needs button shape but not filled-surface
       weight.
-    - `ghost` is a local tool action that needs a hit area but no permanent form.
-      Ask whether the action deserves surface, shape, or only a quiet hit area.
+    - `ghost` is a local tool action that needs a hit area but no permanent form. Ask whether the action deserves
+      surface, shape, or only a quiet hit area.
 - Use these hierarchy review lines when judging button color and emphasis: if the user cannot tell where the action is,
   the design has failed; hierarchy is more important than love for the brand color.
 - Use `ghost` for dense local tools such as table row actions, card header controls, dialog/sheet close `X` buttons,
@@ -121,8 +119,8 @@ For token implementation rules, see [Theme Token Contract](theme-token-contract.
   `ml-*`, `mr-*`, `left-*`, `right-*`, `border-l-*`, or `border-r-*`. Symmetric utilities such as `px-*`, `mx-*`,
   `inset-x-*`, and `border-x-*` are fine.
 - Directional icons are flipped at the usage site only when the icon means inline direction, such as next/previous,
-  back/forward, collapse start/end, or chevron start/end. Use a local class such as `rtl:rotate-180` for that usage.
-  Do not add RTL flipping to generated icon components.
+  back/forward, collapse start/end, or chevron start/end. Use a local class such as `rtl:rotate-180` for that usage. Do
+  not add RTL flipping to generated icon components.
 - Do not flip icons that are not expressing inline flow. External/open icons such as `ArrowUpRightIcon` in a `Visit`
   story, brand icons, decorative icons, spinners, hearts, trash, folders, and close icons should keep their asset
   direction unless the specific component usage gives them directional meaning.
