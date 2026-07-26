@@ -46,7 +46,8 @@ For generation details, see [Icon Generation](icon-generation.md).
 - `src/lib` contains internal/shared library utilities. Keep utilities small, named clearly, and exported through local
   barrels when they are intended for cross-area source imports.
 - `src/core` contains exports that are safe to import from React Server Components and ordinary modern React apps.
-- `src/client` contains client-only exports such as interactive components and hooks.
+- `src/client` contains exports that require a client runtime, such as Base UI-backed or stateful components, providers,
+  hooks, and browser APIs. Native form behavior alone does not determine placement.
 - `src/client.ts` and the `src/client/` directory intentionally coexist. In `src/client.ts`, import the directory barrel
   explicitly as `./client/index` to avoid self-resolution back to `src/client.ts`.
 

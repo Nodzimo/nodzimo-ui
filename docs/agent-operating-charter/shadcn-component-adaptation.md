@@ -5,10 +5,12 @@
 Port shadcn/Base UI components through reviewable passes until they are native Nodzimo UI components: token-safe,
 library-safe, strongly typed, intentionally exported, maintainable, and documented by a useful Storybook consumer.
 
-`src/client/components/input` is the reference for a simple native-prop wrapper with a documented styled subset.
-`src/client/components/select` and `src/client/components/dropdown-menu` are the references for compound components. Use
-their component folders, public barrels, and stories as patterns, but re-derive every decision from the new component's
-upstream contract. Reference means matching quality and reasoning, not copying every type, file, control, or decorator.
+`src/core/components/textarea` and `src/core/components/label` are the references for RSC-safe native wrappers.
+`src/client/components/input` is the reference for preserving a native prop contract while documenting a guaranteed
+styled subset. `src/client/components/select` and `src/client/components/dropdown-menu` are the references for compound
+components. Use their component folders, public barrels, and stories as patterns, but re-derive every decision from the
+new component's upstream contract. Reference means matching quality and reasoning, not copying every type, file,
+control, or decorator.
 
 ### Staged Workflow
 
@@ -31,8 +33,10 @@ final code is known. Small components may combine adjacent passes only when the 
 ### Source Capture And Cleanup
 
 - Start from the official source matching the installed primitive family and component base.
-- Place interactive primitives under `src/client` and preserve the package boundary. Do not copy a file-level
-  `'use client'` directive into every module when the client entrypoint already owns that boundary.
+- Choose `src/core` or `src/client` from the copied implementation and its dependency graph, not from the element being
+  a form control or upstream carrying a blanket `'use client'` directive. Plain native wrappers such as Textarea and
+  Label can remain RSC-safe; Base UI-backed or stateful primitives belong in `src/client`. Preserve the package boundary
+  without copying a file-level directive into every client module when the client entrypoint already owns it.
 - Preserve upstream behavior, DOM structure, defaults, accessibility, and composition before adapting project details.
 - Record the source version or link when upstream behavior is ambiguous.
 - Run formatting and local syntax cleanup as a mechanical pass. Do not silently rename classes, change defaults, or
@@ -63,6 +67,10 @@ final code is known. Small components may combine adjacent passes only when the 
 
 Preserve the public contract of the copied wrapper before considering the broader contract of its internal primitive. An
 implementation based on Base UI does not automatically promise every Base UI prop.
+
+Public prop shape and package placement are independent decisions. Input preserves `ComponentProps<'input'>` while its
+Base UI runtime keeps it under `src/client`; native Textarea and Label wrappers expose their corresponding
+`ComponentProps` contracts from `src/core` because their implementations require no client runtime.
 
 Input deliberately keeps the shadcn native contract:
 
