@@ -1,12 +1,16 @@
 import type { ComponentProps } from 'react'
 import { mcn } from '#lib'
 
-function Label({ className, ...restProps }: ComponentProps<'label'>) {
+type LabelProps = ComponentProps<'label'>
+
+function Label({ className, ...restProps }: LabelProps) {
 	return (
 		// biome-ignore lint/a11y/noLabelWithoutControl: Consumers associate the reusable label through children or htmlFor
 		<label
 			className={mcn(
-				'flex select-none items-center gap-2 font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
+				'flex select-none items-center gap-2 font-medium text-sm leading-none',
+				'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
+				'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
 				className,
 			)}
 			data-slot={'label'}
@@ -15,4 +19,4 @@ function Label({ className, ...restProps }: ComponentProps<'label'>) {
 	)
 }
 
-export { Label }
+export { Label, type LabelProps }
