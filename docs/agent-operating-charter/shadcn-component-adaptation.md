@@ -32,7 +32,9 @@ final code is known. Small components may combine adjacent passes only when the 
 
 ### Source Capture And Cleanup
 
-- Start from the official source matching the installed primitive family and component base.
+- Start from the official source matching the installed primitive family and component base. Treat that selected base's
+  resolved output as authoritative; do not replace its classes or contract with a similar registry base, style preset,
+  documentation artifact, or stale source variant.
 - Choose `src/core` or `src/client` from the copied implementation and its dependency graph, not from the element being
   a form control or upstream carrying a blanket `'use client'` directive. Plain native wrappers such as Textarea and
   Label can remain RSC-safe; Base UI-backed or stateful primitives belong in `src/client`. Preserve the package boundary

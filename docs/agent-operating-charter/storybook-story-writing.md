@@ -11,8 +11,10 @@
 - Before writing stories, classify the component's owned surface area: semantic variants, sizes, states, interaction
   modes, and official composition patterns. If differences are only possible through arbitrary `className`, native DOM
   props, or wrapper layout, they are not story-worthy by themselves.
-- Keep a story budget. Components with one behavior and no owned variants may need only `Default`; add at most one usage
-  or composition story when it documents a real interface pattern consumers should copy.
+- Keep a story budget. Components with one behavior and no owned variants usually need only `Default`, plus at most one
+  usage or composition story. A composition-only primitive such as Skeleton is the narrow exception: several distinct
+  official loading layouts may be separate stories because composition is its documented purpose, not an arbitrary
+  visual mutation. Preserve the upstream layouts and omit examples that require unavailable components.
 - Do not create comparison stories for visual mutations that are not part of the component or design-system contract.
   Showing that an SVG or element can be recolored, resized, or rearranged with Tailwind documents CSS, not component
   behavior.

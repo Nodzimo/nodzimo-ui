@@ -45,6 +45,8 @@ Use `references/story-patterns.md` for compact story shape examples and control 
     - Identify owned semantic variants, sizes, states, interaction modes, and official composition patterns.
     - Ignore differences that only demonstrate arbitrary `className`, native props, wrapper layout, or Tailwind
       mutation.
+    - Apply the documented composition-only exception for primitives such as Skeleton whose official usage surface is a
+      set of meaningfully different loading layouts.
     - Write a short plan where each story answers a concrete interface question.
 
 3. Build focused CSF 3 stories.
