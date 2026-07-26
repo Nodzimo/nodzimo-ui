@@ -69,6 +69,7 @@ Use `references/story-patterns.md` for compact story shape examples and control 
       real prop contract.
     - Treat `table.defaultValue` as the API default and `meta.args` as the initial demo state; verify both
       independently.
+    - For native passthrough controls, follow the Input reference rules in `storybook-story-writing.md`.
 
 5. Keep story-only code inside Storybook boundaries.
     - Follow `docs/agent-operating-charter/internal-package-imports.md` for supporting icons. Colocated consumer stories

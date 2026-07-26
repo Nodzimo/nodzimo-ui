@@ -15,6 +15,7 @@ Use `src/client/components/button/button.stories.tsx` as the current reference p
 - shared `meta.args`
 - focused semantic stories first
 - comparison stories after semantic stories when they document owned scales or compositions
+- `src/client/components/input/input.stories.tsx` for a simple native passthrough story
 
 ## Story Plan Gate
 

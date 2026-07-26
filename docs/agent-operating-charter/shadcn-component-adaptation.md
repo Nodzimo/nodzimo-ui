@@ -5,7 +5,8 @@
 Port shadcn/Base UI components through reviewable passes until they are native Nodzimo UI components: token-safe,
 library-safe, strongly typed, intentionally exported, maintainable, and documented by a useful Storybook consumer.
 
-`src/client/components/select` and `src/client/components/dropdown-menu` are the current reference implementations. Use
+`src/client/components/input` is the reference for a simple native-prop wrapper with a documented styled subset.
+`src/client/components/select` and `src/client/components/dropdown-menu` are the references for compound components. Use
 their component folders, public barrels, and stories as patterns, but re-derive every decision from the new component's
 upstream contract. Reference means matching quality and reasoning, not copying every type, file, control, or decorator.
 
@@ -57,6 +58,40 @@ final code is known. Small components may combine adjacent passes only when the 
 - Convert inline-axis spacing, positioning, radii, and logical-side motion deliberately. Verify portaled overlays in
   both directions instead of assuming inherited `dir`.
 - Keep class regrouping separate from token replacement so reviewers can distinguish formatting from styling changes.
+
+### Simple Wrapper API
+
+Preserve the public contract of the copied wrapper before considering the broader contract of its internal primitive. An
+implementation based on Base UI does not automatically promise every Base UI prop.
+
+Input deliberately keeps the shadcn native contract:
+
+```ts
+type InputProps = ComponentProps<'input'>
+```
+
+Do not replace this with `InputPrimitive.Props` merely because Input renders that primitive. Doing so widens the wrapper
+with features such as primitive-specific render or change contracts that its implementation and upstream source did not
+adopt.
+
+A component may accept a broad native value space while guaranteeing built-in styling for a smaller set. Model these as
+two contracts:
+
+```ts
+const INPUT_SUPPORTED_TYPES = Object.freeze([
+    'text',
+    'email',
+    'tel',
+    'search',
+    'file',
+] as const satisfies readonly NonNullable<InputProps['type']>[])
+
+type InputSupportedType = (typeof INPUT_SUPPORTED_TYPES)[number]
+```
+
+Keep the full native `InputProps['type']` as an intentional customization escape hatch. Export the immutable supported
+list and its derived type for consumers that want the NUI-styled subset. Storybook needing runtime options justifies the
+metadata, not narrowing or widening the component prop.
 
 ### Public Compound API
 
@@ -160,8 +195,8 @@ file count.
 For a complex compound component with one primary behavior, prefer one representative interactive `Default` story over
 many stories that merely repeat internal parts.
 
-Use Button as the reference for explicit simple-component args and control metadata. Use Select and Dropdown Menu for
-compound story architecture.
+Use Input as the reference for a simple native passthrough story, Button for a variant-rich simple component, and Select
+and Dropdown Menu for compound story architecture.
 
 - Build a realistic composition that exercises labels, groups, items, nested parts, important states, and positioning
   when those parts belong to the component.

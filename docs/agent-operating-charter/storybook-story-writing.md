@@ -28,9 +28,14 @@
 - Treat `src/client/components/button/button.stories.tsx` as the current reference pattern for client component stories:
   typed control option constants, story-only icon mapping controls, a shared high-signal `meta.render` for common button
   compositions, focused semantic stories first, then comparison stories such as `Sizes` and `Icon sizes`.
+- Treat `src/client/components/input/input.stories.tsx` as the reference for a simple native passthrough component:
+  one `Default` story, `Meta<typeof Input>`, baseline args that materialize useful controls, explicit API defaults, and
+  no custom render.
 - Use `meta.args` for shared baseline args such as generic `children` and `onClick: fn()`. Focused stories should only
   override the args that make that story meaningful. Use specific children only when the label clarifies semantics, such
   as `Delete` for destructive actions or `Visit` for link-style actions.
+- Use `Meta<typeof Component>` when story args are exactly the component props. Introduce a separate story-args type
+  only when the story owns additional controls or composition data that the component does not accept.
 - For story-only args such as preview icons, extend the story args type with `ComponentProps<typeof Component>`. Expose
   a clearly described control such as `Story-only icon picker (this is not a Button prop!)`, and destructure unused
   story-only args out of custom renders so they do not leak into the rendered component or DOM. For icon-like story-only
@@ -51,9 +56,10 @@
   the editor, but those type unions are not available as runtime values for Storybook controls.
 - Storybook is the first demanding consumer of component metadata. For public finite values, define runtime constants at
   the component layer and derive/export types from them. Button variants/sizes should come from the button variant
-  module; Select trigger sizes and content placement values should come from the Select component files. Stories should
-  import those constants instead of duplicating option arrays. This is a response to a real Storybook auto-controls
-  failure, not a preference for verbose stories.
+  module; Input's guaranteed styled types should come from `INPUT_SUPPORTED_TYPES`; Select trigger sizes and content
+  placement values should come from the Select component files. Stories should import those constants instead of
+  duplicating option arrays. A curated control list may document a supported subset without narrowing a broader
+  component prop. This is a response to a real Storybook auto-controls failure, not a preference for verbose stories.
 - Do not assume docgen will infer usable Controls for wrapped Base UI or CVA-backed components. The project hit this
   with Button: the public contract `ButtonPrimitive.Props & VariantProps<typeof buttonVariants>` is valid TypeScript and
   preserves the Base UI contract, but Storybook did not turn it into clean runtime select options. A simpler
@@ -85,6 +91,13 @@
 - Derive control defaults from the component or upstream primitive, not from whichever value makes the demo look best.
   Treat `table.defaultValue` as API documentation and `meta.args` as the initial demo state. Keep fixed story exceptions
   visible and describe them briefly when a story-wide control otherwise suggests uniform behavior.
+- Reuse one story default constant only when the API default and initial story arg are the same. When they differ, keep
+  the representative value in `meta.args` and write the real default directly in `argTypes`; for example, Input may
+  demonstrate a placeholder while documenting its API default as `undefined`.
+- Do not add `value` or `defaultValue` to a native Input story merely to create another control. The Canvas already
+  demonstrates uncontrolled typing, while a value control makes the story controlled and can produce invalid
+  combinations such as assigning a non-empty value to `type="file"`. Add controlled state only when that behavior is
+  itself the subject of the story.
 - Keep control descriptions as short interface fragments without terminal punctuation.
 - Do not copy `decorators`, `layout: 'padded'`, `h-full`, or preview sizing from a reference story without reproducing
   the layout need. Storybook's default Canvas already centers ordinary stories. Prefer minimal fixed preview geometry,
