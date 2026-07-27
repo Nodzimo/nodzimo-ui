@@ -24,32 +24,27 @@ const meta = {
 	},
 	argTypes: {
 		'aria-invalid': {
-			control: 'boolean',
 			table: {
 				defaultValue: { summary: String(CHECKBOX_DEFAULTS.ariaInvalid) },
 			},
 		},
 		disabled: {
-			control: 'boolean',
 			table: {
 				defaultValue: { summary: String(CHECKBOX_DEFAULTS.disabled) },
 			},
 		},
 		indeterminate: {
-			control: 'boolean',
 			description: 'Shows the mixed selection state',
 			table: {
 				defaultValue: { summary: String(CHECKBOX_DEFAULTS.indeterminate) },
 			},
 		},
 		readOnly: {
-			control: 'boolean',
 			table: {
 				defaultValue: { summary: String(CHECKBOX_DEFAULTS.readOnly) },
 			},
 		},
 		required: {
-			control: 'boolean',
 			table: {
 				defaultValue: { summary: String(CHECKBOX_DEFAULTS.required) },
 			},
