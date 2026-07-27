@@ -201,6 +201,14 @@ verification passes, using Select and Dropdown Menu as quality references rather
 See
 [docs/agent-operating-charter/shadcn-component-adaptation.md](docs/agent-operating-charter/shadcn-component-adaptation.md).
 
+## Base UI Checkbox State And Disabled Decision
+
+Checkbox indeterminate rendering, selected-state styling, Base UI `data-disabled` handling, Label peer styling, and the
+related Storybook decisions are recorded together to prevent repeating the upstream investigation.
+
+See
+[docs/agent-operating-charter/checkbox-base-ui-state-and-disabled-decision.md](docs/agent-operating-charter/checkbox-base-ui-state-and-disabled-decision.md).
+
 ## Select API
 
 Select preserves the Base UI compound contract while exporting focused readonly option types for strict flat-option data

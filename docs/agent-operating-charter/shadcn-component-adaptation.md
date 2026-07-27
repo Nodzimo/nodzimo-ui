@@ -41,6 +41,11 @@ final code is known. Small components may combine adjacent passes only when the 
   without copying a file-level directive into every client module when the client entrypoint already owns it.
 - Preserve upstream behavior, DOM structure, defaults, accessibility, and composition before adapting project details.
 - Record the source version or link when upstream behavior is ambiguous.
+- Do not assume a Base UI primitive's visible Root can match native pseudo-classes. Check its documented default element
+  and state data attributes before preserving selectors such as `disabled:*`. Checkbox is the known case: its default
+  Root is a `span`, so standalone disabled styling needs `data-disabled:*`, and an adjacent Label needs the
+  corresponding peer data selector. See
+  [Base UI Checkbox State And Disabled Decision](checkbox-base-ui-state-and-disabled-decision.md).
 - Run formatting and local syntax cleanup as a mechanical pass. Do not silently rename classes, change defaults, or
   redesign the API while making copied code readable.
 - Prefer a canonical Tailwind scale utility such as `min-w-24` over an exactly equivalent arbitrary value when project

@@ -36,6 +36,9 @@
 - Use `meta.args` for shared baseline args such as generic `children` and `onClick: fn()`. Focused stories should only
   override the args that make that story meaningful. Use specific children only when the label clarifies semantics, such
   as `Delete` for destructive actions or `Visit` for link-style actions.
+- Put each interactive story's primary callback in `meta.args` with `fn()` so Controls exposes the main interaction
+  boundary and Actions records real use. Current examples are Button `onClick`, Checkbox `onCheckedChange`, Input and
+  Textarea `onChange`, Select `onValueChange`, and Dropdown Menu `onOpenChange`. Do not enumerate every secondary event.
 - Use `Meta<typeof Component>` when story args are exactly the component props. Introduce a separate story-args type
   only when the story owns additional controls or composition data that the component does not accept.
 - For story-only args such as preview icons, extend the story args type with `ComponentProps<typeof Component>`. Expose
@@ -90,6 +93,8 @@
   type and `satisfies Meta<...>` validate the story at compile time but do not create runtime control metadata. Add
   explicit `control`, defaults, descriptions, and runtime options for important states; do not distort the component API
   merely to improve docgen.
+- When a boolean baseline is present in `meta.args` and Storybook already infers its boolean control, do not repeat
+  `control: 'boolean'` in `argTypes`. Keep an explicit control only when inference fails.
 - Derive control defaults from the component or upstream primitive, not from whichever value makes the demo look best.
   Treat `table.defaultValue` as API documentation and `meta.args` as the initial demo state. Keep fixed story exceptions
   visible and describe them briefly when a story-wide control otherwise suggests uniform behavior.
