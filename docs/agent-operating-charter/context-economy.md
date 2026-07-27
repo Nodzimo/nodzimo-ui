@@ -24,8 +24,8 @@ goal -> scope -> source of truth -> focused work -> relevant verification -> sho
 
 Use small context for ordinary implementation, bug fixes, reviews, and routine docs.
 
-Use large context for architecture, incidents, migrations, dependency upgrades, package/API boundaries,
-cross-project compatibility, and documentation-system audits.
+Use large context for architecture, incidents, migrations, dependency upgrades, package/API boundaries, cross-project
+compatibility, and documentation-system audits.
 
 Think deeply when needed. Report briefly unless the user asks for a long analysis.
 
@@ -151,6 +151,13 @@ A skill should not be the project handbook. If it becomes long, move stable rule
 Prefer one focused skill over one universal skill. Disable implicit invocation for skills that are useful only when the
 user explicitly asks for them.
 
+For a task that genuinely needs several skills:
+
+- assign each selected skill one distinct pass before loading it;
+- load shared required reading once per turn and reuse it across those passes;
+- defer cleanup and final-review skills until the implementation is stable and an actual checklist gap remains;
+- do not load a broad skill only to repeat checks already owned by a narrower skill.
+
 ## Verification
 
 Run the cheapest check that can catch the likely failure.
@@ -159,6 +166,13 @@ Use full verification only for release, publish, deploy, dependency updates, pac
 or broad refactors.
 
 If local verification is unavailable, unsafe, or not meaningful, say so plainly and describe the closest useful check.
+
+Treat command output as context, not free telemetry:
+
+- capture verbose output and report only a short success line;
+- preserve complete output only for failures or evidence the user explicitly requested;
+- do not rerun an already-passing broad build after a documentation-only or formatting-only follow-up;
+- prefer focused file checks over full Storybook or package builds when the changed boundary does not require them.
 
 ## Output Contract
 

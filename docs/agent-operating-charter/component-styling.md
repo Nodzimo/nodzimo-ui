@@ -38,6 +38,13 @@ See [NUI Link Foundation Decision](nui-link-foundation-decision.md) for the owne
 - Long Tailwind class lists should be split into readable static chunks without changing visual behavior. Prefer
   recognizable groups to equal line lengths, keep caller `className` last in merge calls, and do not use CVA only as a
   line-break mechanism.
+- Prefer a plain string for a short static `className`. For a static internal part whose class list is too long to
+  review on one line, multiple static `mcn(...)` arguments are an accepted readability exception even when there is no
+  caller class to merge. Use this only when Biome would collapse a grouped template literal; keep each argument as one
+  recognizable modifier or utility-family group so Tailwind and Biome can still inspect the literals.
+- Do not replace that focused `mcn(...)` exception with an array plus `.join(' ')`, a lint suppression, CVA, or a
+  one-off CSS utility merely to avoid the small merge call. Those alternatives add structure, lose useful checking, or
+  move local geometry away from its component without improving the styling contract.
 - Treat copied class lists as source-of-truth data during formatting: do not add, remove, rename, token-adapt, or
   silently fix classes while doing a formatting-only pass.
 

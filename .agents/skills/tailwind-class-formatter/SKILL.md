@@ -41,6 +41,9 @@ still exists exactly once unless the original intentionally contained duplicates
 - Split when a class list causes horizontal scrolling, contains several modifier families, or is hard to review in a
   diff.
 - Prefer multiple static string arguments inside `mcn(...)` / `cn(...)` over one huge string.
+- A long static internal-part class list may use grouped `mcn(...)` arguments even without caller overrides when Biome
+  would flatten a multiline template literal. Treat this as the documented readability exception from
+  `component-styling.md`, not a reason to wrap ordinary static classes.
 - Do not split into one utility per line. A line should represent a recognizable group.
 - Do not chase equal line lengths. Optimize for quick scanning and cheap maintenance.
 
