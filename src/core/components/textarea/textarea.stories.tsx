@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 import { Textarea } from '.'
 
 const TEXTAREA_DEFAULTS = {
@@ -14,6 +15,7 @@ const meta = {
 		'aria-invalid': TEXTAREA_DEFAULTS.ariaInvalid,
 		'aria-label': '',
 		disabled: TEXTAREA_DEFAULTS.disabled,
+		onChange: fn(),
 		placeholder: 'Type your message here',
 		required: TEXTAREA_DEFAULTS.required,
 	},

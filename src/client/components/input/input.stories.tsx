@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 import {
 	STRING_UNION_SUMMARY,
 	UNION_SEPARATOR,
@@ -19,6 +20,7 @@ const meta = {
 		'aria-invalid': INPUT_DEFAULTS.ariaInvalid,
 		'aria-label': '',
 		disabled: INPUT_DEFAULTS.disabled,
+		onChange: fn(),
 		placeholder: 'Enter text',
 		required: INPUT_DEFAULTS.required,
 		type: INPUT_DEFAULTS.type,

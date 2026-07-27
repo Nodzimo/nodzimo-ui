@@ -2,6 +2,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentProps, ComponentType } from 'react'
+import { fn } from 'storybook/test'
 import {
 	ArabLeagueFlagIcon,
 	BelarusFlagIcon,
@@ -112,6 +113,7 @@ const meta = {
 		contentSide: SELECT_DEFAULTS.contentSide,
 		contentSideOffset: SELECT_DEFAULTS.contentSideOffset,
 		disabled: SELECT_DEFAULTS.disabled,
+		onValueChange: fn(),
 		triggerAriaInvalid: SELECT_DEFAULTS.triggerAriaInvalid,
 		triggerSize: SELECT_DEFAULTS.triggerSize,
 	},

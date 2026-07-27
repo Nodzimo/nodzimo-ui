@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { fn } from 'storybook/test'
 import { Button } from '#client'
 import {
 	STRING_UNION_SUMMARY,
@@ -65,6 +66,7 @@ const meta = {
 		itemDisabled: DROPDOWN_MENU_DEFAULTS.itemDisabled,
 		itemInset: DROPDOWN_MENU_DEFAULTS.itemInset,
 		itemVariant: DROPDOWN_MENU_DEFAULTS.itemVariant,
+		onOpenChange: fn(),
 		triggerDisabled: DROPDOWN_MENU_DEFAULTS.triggerDisabled,
 		triggerOpenOnHover: DROPDOWN_MENU_DEFAULTS.triggerOpenOnHover,
 	},
