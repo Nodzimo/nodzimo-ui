@@ -3,16 +3,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Skeleton } from '.'
 
-const SKELETON_TABLE_ROWS = [
-	'row-1',
-	'row-2',
-	'row-3',
-	'row-4',
-	'row-5',
-] as const
-
 const meta = {
 	component: Skeleton,
+	decorators: [
+		(Story) => {
+			return (
+				<div className={'flex w-sm justify-center'}>
+					<Story />
+				</div>
+			)
+		},
+	],
 	title: 'Core/Components/Skeleton',
 } satisfies Meta<typeof Skeleton>
 
@@ -21,7 +22,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
 	render: () => {
-		return <Skeleton className={'h-[20px] w-[100px] rounded-full'} />
+		return <Skeleton className={'size-24'} />
 	},
 }
 
@@ -31,8 +32,8 @@ export const Avatar: Story = {
 			<div className={'flex w-fit items-center gap-4'}>
 				<Skeleton className={'size-10 shrink-0 rounded-full'} />
 				<div className={'grid gap-2'}>
-					<Skeleton className={'h-4 w-[150px]'} />
-					<Skeleton className={'h-4 w-[100px]'} />
+					<Skeleton className={'h-4 w-37.5'} />
+					<Skeleton className={'h-4 w-25'} />
 				</div>
 			</div>
 		)
@@ -73,9 +74,10 @@ export const Table: Story = {
 	render: () => {
 		return (
 			<div className={'flex w-full max-w-sm flex-col gap-2'}>
-				{SKELETON_TABLE_ROWS.map((row) => {
+				{Array.from({ length: 5 }).map((_, index) => {
 					return (
-						<div className={'flex gap-4'} key={row}>
+						// biome-ignore lint/suspicious/noArrayIndexKey: Static decorative rows never reorder
+						<div className={'flex gap-4'} key={index}>
 							<Skeleton className={'h-4 flex-1'} />
 							<Skeleton className={'h-4 w-24'} />
 							<Skeleton className={'h-4 w-20'} />
