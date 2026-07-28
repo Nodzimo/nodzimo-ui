@@ -63,6 +63,11 @@
     - Run `bun run storybook:build` and confirm `storybook-static/assets/iframe-*.css` contains its intentional
       Preflight plus needed story and preview utilities such as design-lab gaps, preview padding, and NUI foundation
       classes.
+    - After updating `src/tailwind-extensions.css`, compare it with the pinned upstream shadcn source, run both CSS
+      builds, and confirm used shared variants compile into concrete selectors while raw `@custom-variant`, `@utility`,
+      and local import statements do not survive in `dist/styles.css`. Confirm `bun pm pack --dry-run` does not publish
+      the vendored source file. See
+      [Tailwind shadcn Extensions Decision](tailwind-shadcn-extensions-decision.md).
     - Compile an isolated Tailwind input with `source(none)`, import `@nodzimo/ui/theme.css`, and safelist
       representative consumer-only classes absent from package component source. Cover at least color, border/ring,
       radius, spacing, opacity, interaction, and class-based dark forms such as `bg-nui-card`, `ring-nui-ring`,

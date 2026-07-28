@@ -148,6 +148,14 @@ for consumers.
 
 See [docs/agent-operating-charter/tailwind-and-styles.md](docs/agent-operating-charter/tailwind-and-styles.md).
 
+## Tailwind shadcn Extensions Decision
+
+NUI vendors shadcn's shared Tailwind compiler extensions as one pinned source unit, compiles only the selectors needed
+by package components and Storybook, and does not publish the raw extension file or depend on the shadcn CLI package.
+
+See
+[docs/agent-operating-charter/tailwind-shadcn-extensions-decision.md](docs/agent-operating-charter/tailwind-shadcn-extensions-decision.md).
+
 ## Tailwind Preflight Ownership Decision
 
 The consumer owns the global reset; the package ships compiled NUI styles without Preflight, while Storybook keeps its

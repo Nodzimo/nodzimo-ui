@@ -2,9 +2,9 @@
 
 ### Tooling Role
 
-- Tailwind is build-time styling tooling. The library uses it to compile component CSS; Tailwind consumers use their
-  own compiler to turn the public NUI theme mappings into application utilities. Tailwind is not a runtime dependency
-  of the published React package.
+- Tailwind is build-time styling tooling. The library uses it to compile component CSS; Tailwind consumers use their own
+  compiler to turn the public NUI theme mappings into application utilities. Tailwind is not a runtime dependency of the
+  published React package.
 - Keep `tailwindcss`, `@tailwindcss/cli`, and `tw-animate-css` in `devDependencies`; consumers receive built CSS from
   `dist/styles.css`.
 - Do not rely on consumer Tailwind scanning to style library components. A Next consumer may appear to pick up some
@@ -22,9 +22,9 @@
   the consumer imports Tailwind and receives exactly one consumer-owned Preflight. A consumer may instead use another
   reset, but Nodzimo UI does not promise normalization for a reset-free document, an arbitrary reset, or conflicting
   host global CSS.
-- This ownership boundary does not make the package stylesheet incomplete. Component utilities, NUI tokens,
-  animations, and opt-in foundation classes are compiled into `dist/styles.css`; only document normalization is left
-  to the application.
+- This ownership boundary does not make the package stylesheet incomplete. Component utilities, NUI tokens, animations,
+  and opt-in foundation classes are compiled into `dist/styles.css`; only document normalization is left to the
+  application.
 - Keep broad NUI foundation behavior opt-in through `nui-boundaries`, `nui-surface`, `nui-interactive`, and `nui-links`.
   These classes are package features, not a replacement for Preflight, and they must not become unscoped global
   selectors.
@@ -75,8 +75,7 @@ For token naming and semantic roles, see [Theme Token Contract](theme-token-cont
   intentional exception to the `dist` runtime-artifact convention: compiling it would consume the `@theme` directives,
   while copying it into `dist` would add a build step without changing the artifact.
 - Keep the package whitelist narrow: include exactly `src/theme.css`, not the whole `src` tree. Consumers must import
-  the
-  public alias and must not deep-import `@nodzimo/ui/src/theme.css`.
+  the public alias and must not deep-import `@nodzimo/ui/src/theme.css`.
 - In a Tailwind consumer, import the NUI compiler theme immediately after Tailwind in the application's global CSS:
 
 ```text
@@ -111,22 +110,35 @@ trade-offs, see [Tailwind Consumer Theme Integration Decision](tailwind-consumer
 - Keep the stylesheet architecture split by role:
     - `src/theme.css` is the public Tailwind compiler contract: NUI theme mappings and the class-based `dark` variant.
       It is imported by `src/library.css` and published unchanged as `@nodzimo/ui/theme.css`.
-    - `src/library.css` is the shared library style contract: raw light/dark NUI values, CSS variables, and
-      foundation classes, including the shared link recipe. It imports `./theme.css` and shared CSS-first utility
-      sources, but does not import Tailwind itself.
+    - `src/library.css` is the shared library style contract: raw light/dark NUI values, CSS variables, and foundation
+      classes, including the shared link recipe. It imports `./theme.css` and shared CSS-first utility sources, but does
+      not import Tailwind itself.
     - `src/styles.css` is the publishable package stylesheet entrypoint. It imports Tailwind theme and utilities without
       Preflight, imports `./library.css`, scans `src`, and excludes colocated stories.
     - `.storybook/preview.css` is the Storybook application stylesheet entrypoint. It imports full Tailwind with
       `source(none)`, including Preflight, imports `../src/library.css`, and explicitly scans `src` plus `.storybook` so
       story and preview utilities can be generated.
-- Keep `@import "tw-animate-css";` and `@import "./theme.css";` at the start of `src/library.css`, before local token,
-  foundation, and utility declarations. This makes the
-  shadcn-style animation utilities such as `animate-in`, `animate-out`, `fade-in-*`, `zoom-in-*`, and `slide-in-*`
-  available to both CSS entrypoints: the publishable `dist/styles.css` and Storybook's preview stylesheet. Do not
-  duplicate this import in `src/styles.css` and `.storybook/preview.css`.
+- Keep the shared imports at the start of `src/library.css`, before local token, foundation, and utility declarations,
+  in this order:
+
+```text
+@import "tw-animate-css";
+@import "./tailwind-extensions.css";
+@import "./theme.css";
+```
+
+`tw-animate-css` supplies animation utilities such as `animate-in`, `animate-out`, `fade-in-*`, `zoom-in-*`, and
+`slide-in-*`. The vendored shadcn extensions supply shared state variants, orientation variants, and CSS-first
+utilities. Importing both through `library.css` makes them available to the publishable `dist/styles.css` and Storybook
+without duplicate entrypoint imports.
+
 - Multiple Tailwind CSS imports here are compiler entrypoints for different artifacts, not duplicate runtime Tailwind
   instances in one consumer bundle. The package build emits reset-free `dist/styles.css`; Storybook emits its own
   Preflight-backed iframe CSS under `storybook-static/assets`.
+
+For provenance, variant semantics, rejected dependency and partial-copy alternatives, build behavior, measured output,
+and the update procedure, see
+[Tailwind shadcn Extensions Decision](tailwind-shadcn-extensions-decision.md).
 
 ### Source Detection
 
@@ -139,8 +151,7 @@ trade-offs, see [Tailwind Consumer Theme Integration Decision](tailwind-consumer
   utilities such as layout gaps, grid helpers, and comparison-canvas classes.
 - The package CSS entrypoint should declare Tailwind's layer order, import `tailwindcss/theme.css`, import
   `tailwindcss/utilities.css` with `source(none)`, and import `./library.css` before `@source` directives. Do not
-  restore
-  the full `@import "tailwindcss"` or add `tailwindcss/preflight.css`; either would put the reset back into
+  restore the full `@import "tailwindcss"` or add `tailwindcss/preflight.css`; either would put the reset back into
   `dist/styles.css`.
 - Tailwind v4 `@utility` registers a utility with Tailwind, but does not by itself guarantee that the utility or its
   variants are emitted into `dist/styles.css`. Public NUI utilities belong in `src/library.css`; class forms promised to
