@@ -50,16 +50,20 @@ valid where no shared alias exists.
 ### Decision
 
 - Vendor the complete upstream `packages/shadcn/src/tailwind.css` as `src/tailwind-extensions.css`.
-- Pin provenance in the file header to shadcn `4.16.0` and commit
-  `3150ac35a62e767eba39cc90730e9daeaa5be76f`.
+- Keep the vendored CSS free of local provenance comments so it remains directly comparable with upstream.
+- Record its pinned provenance here: shadcn `4.16.0`, commit
+  `3150ac35a62e767eba39cc90730e9daeaa5be76f`, and the
+  [corresponding upstream source](https://github.com/shadcn-ui/ui/blob/3150ac35a62e767eba39cc90730e9daeaa5be76f/packages/shadcn/src/tailwind.css).
 - Preserve it as one upstream-owned source unit. Project formatting and declaration ordering may differ, but utilities,
   variants, keyframes, properties, selectors, and behavior must remain complete.
 - Import it once from `src/library.css`, between `tw-animate-css` and `theme.css`.
 - Treat it as private build input, not as a public NUI stylesheet or consumer Tailwind contract.
 - Update it deliberately by comparing a new pinned upstream snapshot; no automatic shadcn dependency update owns it.
 
-The source remains MIT-licensed. Its header preserves the upstream copyright and SPDX identifier; the repository root
-`LICENSE` contains the full MIT permission and warranty terms.
+The vendored source is licensed under the MIT License: Copyright © 2023 shadcn. The
+[pinned upstream license](https://github.com/shadcn-ui/ui/blob/3150ac35a62e767eba39cc90730e9daeaa5be76f/LICENSE.md)
+contains its complete terms; the repository root `LICENSE` contains the same MIT permission and warranty terms. This
+notice lives in the shipped decision record instead of being duplicated in the CSS snapshot.
 
 ### Build And Publication Boundaries
 
@@ -142,15 +146,16 @@ The decision was verified against shadcn `4.16.0`, Tailwind CSS CLI `4.3.3`, and
 ### Update Procedure
 
 1. Read the current version from upstream `packages/shadcn/package.json` and select an exact commit.
-2. Replace the body of `src/tailwind-extensions.css` from the matching upstream `packages/shadcn/src/tailwind.css`;
-   preserve and update the local provenance header.
-3. Format the file with project tooling. Compare all declarations and nested rules with upstream; do not review only a
+2. Replace `src/tailwind-extensions.css` from the matching upstream `packages/shadcn/src/tailwind.css` without adding
+   local comments.
+3. Update the pinned version, commit, source, and license links in this decision record.
+4. Format the file with project tooling. Compare all declarations and nested rules with upstream; do not review only a
    line diff because property sorting is expected.
-4. Review new or removed `@custom-variant`, `@utility`, `@theme`, `@property`, plain selector, media, and RTL behavior.
-5. Run `bun run build:css`, `bun run storybook:build`, and `bun pm pack --dry-run`.
-6. Inspect both CSS artifacts for expected selectors, raw directives/import leakage, Preflight ownership, story-only
+5. Review new or removed `@custom-variant`, `@utility`, `@theme`, `@property`, plain selector, media, and RTL behavior.
+6. Run `bun run build:css`, `bun run storybook:build`, and `bun pm pack --dry-run`.
+7. Inspect both CSS artifacts for expected selectors, raw directives/import leakage, Preflight ownership, story-only
    leakage, and material size changes.
-7. Audit existing and newly ported components for unresolved `cn-*` CLI markers separately; this file does not resolve
+8. Audit existing and newly ported components for unresolved `cn-*` CLI markers separately; this file does not resolve
    them.
 
 ### External References
