@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+    <scope name="Tailwind Extensions Stylesheet" pattern="file:src/tailwind-extensions.css"/>
+</component>
