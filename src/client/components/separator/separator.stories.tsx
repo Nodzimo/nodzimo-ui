@@ -1,12 +1,21 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { PropsWithChildren } from 'react'
 import { mcn } from '#lib'
 import {
 	STRING_UNION_SUMMARY,
 	UNION_SEPARATOR,
 } from '../../../storybook/constants'
 import { SEPARATOR_ORIENTATIONS, Separator } from '.'
+
+function DescriptionList(props: PropsWithChildren) {
+	return <dl {...props} className={'flex justify-between'} />
+}
+
+function DescriptionDetails(props: PropsWithChildren) {
+	return <dd {...props} className={'text-nui-muted-foreground'} />
+}
 
 const meta = {
 	args: {
@@ -37,12 +46,12 @@ export const Default: Story = {
 			<div
 				className={mcn(
 					args.orientation === 'horizontal' ? 'flex-col' : 'flex-row',
-					'flex gap-2',
+					'flex items-center gap-2',
 				)}
 			>
-				<div>Item 1</div>
+				<div>First</div>
 				<Separator {...args} />
-				<div>Item 2</div>
+				<div>Second</div>
 			</div>
 		)
 	},
@@ -51,7 +60,7 @@ export const Default: Story = {
 export const Vertical: Story = {
 	render: () => {
 		return (
-			<div className={'flex h-5 items-center gap-4 text-sm'}>
+			<div className={'flex gap-4'}>
 				<div>Blog</div>
 				<Separator orientation={'vertical'} />
 				<div>Docs</div>
@@ -65,21 +74,21 @@ export const Vertical: Story = {
 export const List: Story = {
 	render: () => {
 		return (
-			<div className={'flex w-full max-w-sm flex-col gap-2 text-sm'}>
-				<dl className={'flex items-center justify-between'}>
+			<div className={'flex w-xs flex-col gap-2'}>
+				<DescriptionList>
 					<dt>Item 1</dt>
-					<dd className={'text-nui-muted-foreground'}>Value 1</dd>
-				</dl>
+					<DescriptionDetails>Value 1</DescriptionDetails>
+				</DescriptionList>
 				<Separator />
-				<dl className={'flex items-center justify-between'}>
+				<DescriptionList>
 					<dt>Item 2</dt>
-					<dd className={'text-nui-muted-foreground'}>Value 2</dd>
-				</dl>
+					<DescriptionDetails>Value 2</DescriptionDetails>
+				</DescriptionList>
 				<Separator />
-				<dl className={'flex items-center justify-between'}>
+				<DescriptionList>
 					<dt>Item 3</dt>
-					<dd className={'text-nui-muted-foreground'}>Value 3</dd>
-				</dl>
+					<DescriptionDetails>Value 3</DescriptionDetails>
+				</DescriptionList>
 			</div>
 		)
 	},
