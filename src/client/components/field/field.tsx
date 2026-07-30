@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { type ComponentProps, type ReactNode, useMemo } from 'react'
-import { Separator } from '#client'
-import { Label } from '#core'
+import { Separator } from '#client/components/separator'
+import { Label } from '#core/components/label'
 import { mcn } from '#lib'
 
-function FieldSet({ className, ...props }: ComponentProps<'fieldset'>) {
+function FieldSet({ className, ...restProps }: ComponentProps<'fieldset'>) {
 	return (
 		<fieldset
 			className={mcn(
@@ -12,7 +12,7 @@ function FieldSet({ className, ...props }: ComponentProps<'fieldset'>) {
 				className,
 			)}
 			data-slot={'field-set'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
@@ -20,7 +20,7 @@ function FieldSet({ className, ...props }: ComponentProps<'fieldset'>) {
 function FieldLegend({
 	className,
 	variant = 'legend',
-	...props
+	...restProps
 }: ComponentProps<'legend'> & { variant?: 'legend' | 'label' }) {
 	return (
 		<legend
@@ -30,12 +30,12 @@ function FieldLegend({
 			)}
 			data-slot={'field-legend'}
 			data-variant={variant}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
 
-function FieldGroup({ className, ...props }: ComponentProps<'div'>) {
+function FieldGroup({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
@@ -43,7 +43,7 @@ function FieldGroup({ className, ...props }: ComponentProps<'div'>) {
 				className,
 			)}
 			data-slot={'field-group'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
@@ -69,7 +69,7 @@ const fieldVariants = cva(
 function Field({
 	className,
 	orientation = 'vertical',
-	...props
+	...restProps
 }: ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
 	return (
 		// biome-ignore lint/a11y/useSemanticElements: Field groups one control while FieldSet provides the semantic fieldset for related controls
@@ -78,12 +78,12 @@ function Field({
 			data-orientation={orientation}
 			data-slot={'field'}
 			role={'group'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
 
-function FieldContent({ className, ...props }: ComponentProps<'div'>) {
+function FieldContent({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
@@ -91,12 +91,12 @@ function FieldContent({ className, ...props }: ComponentProps<'div'>) {
 				className,
 			)}
 			data-slot={'field-content'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
 
-function FieldLabel({ className, ...props }: ComponentProps<typeof Label>) {
+function FieldLabel({ className, ...restProps }: ComponentProps<typeof Label>) {
 	return (
 		<Label
 			className={mcn(
@@ -105,12 +105,12 @@ function FieldLabel({ className, ...props }: ComponentProps<typeof Label>) {
 				className,
 			)}
 			data-slot={'field-label'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
 
-function FieldTitle({ className, ...props }: ComponentProps<'div'>) {
+function FieldTitle({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
@@ -118,22 +118,22 @@ function FieldTitle({ className, ...props }: ComponentProps<'div'>) {
 				className,
 			)}
 			data-slot={'field-label'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
 
-function FieldDescription({ className, ...props }: ComponentProps<'p'>) {
+function FieldDescription({ className, ...restProps }: ComponentProps<'p'>) {
 	return (
 		<p
 			className={mcn(
-				'text-left font-normal text-nui-muted-foreground text-sm leading-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
+				'text-start font-normal text-nui-muted-foreground text-sm leading-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
 				'nth-last-2:-mt-1 last:mt-0',
 				'[&>a:hover]:text-nui-primary [&>a]:underline [&>a]:underline-offset-4',
 				className,
 			)}
 			data-slot={'field-description'}
-			{...props}
+			{...restProps}
 		/>
 	)
 }
@@ -141,7 +141,7 @@ function FieldDescription({ className, ...props }: ComponentProps<'p'>) {
 function FieldSeparator({
 	children,
 	className,
-	...props
+	...restProps
 }: ComponentProps<'div'> & {
 	children?: ReactNode
 }) {
@@ -153,7 +153,7 @@ function FieldSeparator({
 			)}
 			data-content={!!children}
 			data-slot={'field-separator'}
-			{...props}
+			{...restProps}
 		>
 			<Separator className={'absolute inset-0 top-1/2'} />
 			{children && (
@@ -174,7 +174,7 @@ function FieldError({
 	className,
 	children,
 	errors,
-	...props
+	...restProps
 }: ComponentProps<'div'> & {
 	errors?: Array<{ message?: string } | undefined>
 }) {
@@ -196,7 +196,7 @@ function FieldError({
 		}
 
 		return (
-			<ul className={'ml-4 flex list-disc flex-col gap-1'}>
+			<ul className={'ms-4 flex list-disc flex-col gap-1'}>
 				{uniqueErrors.map(
 					(error, index) =>
 						// biome-ignore lint/suspicious/noArrayIndexKey: Error items are stateless and never reordered
@@ -215,7 +215,7 @@ function FieldError({
 			className={mcn('font-normal text-nui-destructive text-sm', className)}
 			data-slot={'field-error'}
 			role={'alert'}
-			{...props}
+			{...restProps}
 		>
 			{content}
 		</div>
