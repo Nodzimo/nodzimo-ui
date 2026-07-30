@@ -18,3 +18,7 @@
   development. Exclude peer dependencies semantically from `not-to-dev-dep`; if React is removed from
   `peerDependencies`, its runtime import becomes an `npm-dev` violation again. Keep the intentional React and React DOM
   paths explicit in `no-duplicate-dep-types` and `peer-deps-used`.
+- FieldError's `useMemo` was the first runtime React import in production source encountered by this rule set; earlier
+  source imports were type-only and therefore did not expose the peer-plus-development classification. The resulting
+  dependency-cruiser violation was metadata-rule noise, not evidence that React had been bundled or leaked into the
+  RSC-safe root. Preserve the semantic `npm-peer` exception instead of removing legitimate React APIs from client code.

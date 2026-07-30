@@ -9,11 +9,12 @@ decomposition, import, and Storybook investigations.
 The implementation lives under `src/client/components/field`. The selected upstream references are:
 
 - [shadcn Base UI Field documentation](https://ui.shadcn.com/docs/components/base/field)
-- [shadcn Base UI Field source](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/field.tsx)
-- [shadcn responsive Field example](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/examples/field-responsive.tsx)
+- [shadcn Base UI Field source](https://github.com/shadcn-ui/ui/blob/f31ed81983653919dd4fe77aee4b4859f610f1dc/apps/v4/registry/new-york-v4/ui/field.tsx)
+- [shadcn responsive Field example](https://github.com/shadcn-ui/ui/blob/04432835f91dbe0a3273f50ac829e0a377110e5f/apps/v4/registry/new-york-v4/examples/field-responsive.tsx)
 
-These links identify the selected component family and source line. They are not permission to copy later upstream
-changes without running the normal staged adaptation workflow again.
+The commit-pinned links identify stable structural and behavioral references; the locally captured implementation was
+already cleaned before its first repository commit and is not claimed to be byte-identical. The links are not permission
+to copy later upstream changes without running the normal staged adaptation workflow again.
 
 ### Field Is Not A Label Or A Form Controller
 
@@ -43,6 +44,10 @@ The Field family is exported from the client entrypoint. Its folder contains sel
 - `field-error.tsx` owns error normalization and rendering
 - `field-separator.tsx` owns the separator composition
 - `index.ts` is the complete local public surface
+
+Client placement follows the runtime graph, not the fact that Field composes form controls. `FieldError` uses
+`useMemo`, and `FieldSeparator` renders the client-side NUI Separator. RSC-safe `FieldLabel` remains a focused import
+from core, but the complete compound surface belongs to the client entrypoint.
 
 The split follows semantic responsibility, not a target file count. The implementation modules have no sibling
 cross-imports and do not duplicate shared helpers or styles. `fieldVariants` stays beside `Field`: it is used only by
@@ -130,6 +135,10 @@ Only the two markers intentionally consumed by Field styles are named. NUI does 
 attribute as a component state. It also does not invent `invalid` or `disabled` aliases: the selected shadcn contract
 uses the data attributes directly.
 
+shadcn documents `data-invalid` in the Field API. `data-disabled` is established by the upstream
+`group-data-[disabled=true]/field` styling contract rather than the same API table. NUI types both because consumers can
+intentionally activate both supported Field states.
+
 The two selectors are value-based:
 
 ```text
@@ -160,15 +169,19 @@ query variant, not an unresolved shadcn registry marker or a viewport breakpoint
 `responsive` are expected to look alike. Their difference appears when the container narrows: `horizontal` remains a
 row, while `responsive` stacks.
 
+`group-has-data-horizontal/field:*` uses the vendored shadcn `data-horizontal` custom variant, which maps to
+`[data-orientation="horizontal"]`. It is a compiler-supported selector covered by the
+[Tailwind shadcn Extensions Decision](tailwind-shadcn-extensions-decision.md), not a CLI marker that must be removed
+during adaptation.
+
 The Storybook Input uses `w-auto` as focused demo geometry. NUI Input normally contributes `w-full`; the explicit
 horizontal Field recipe does not reset direct-child width, so an unmodified full-width input can compress
 `FieldContent`. The responsive recipe already controls child widths across its container breakpoint. `w-auto` makes the
 same representative composition legible in all three modes without changing the production Field recipe.
 
 Semantic colors and radii use NUI-prefixed tokens. Structural layout utilities remain structural Tailwind classes.
-Inline-direction spacing and alignment use logical utilities such as `ms`, `pe`, `inset-e`, and `text-start` where the
-source has directional meaning. RTL is an implementation property of the component; it is not repeated as a special
-Field story control.
+Inline-direction spacing and alignment use `ms` and `text-start` where the source has directional meaning. RTL is an
+implementation property of the component; it is not repeated as a special Field story control.
 
 ### Accessibility And Focused Suppressions
 
@@ -183,7 +196,8 @@ Field groups one control while FieldSet provides the semantic fieldset for relat
 This is not a blanket accessibility suppression. `FieldLabel` still needs a valid `htmlFor`/`id` association,
 `FieldError` remains an alert, and related controls still belong in `FieldSet` with `FieldLegend`.
 
-`FieldError` deduplicates the supplied snapshot by message before rendering. When multiple messages remain, the upstream
+Explicit `children` take precedence over the `errors` array. With neither children nor usable errors, `FieldError`
+renders nothing; otherwise it deduplicates the supplied snapshot by message. When multiple messages remain, the upstream
 implementation uses the resulting array index as the list key. The focused suppression is accepted because the list has
 no interactive item state, is recreated from the current validation snapshot, and is not reordered by user operations.
 Introducing generated identities would add state the error contract does not possess.
@@ -208,6 +222,13 @@ Promoting or deleting it requires separate evidence from an upstream composition
 contract already includes children. It does not narrow or change runtime behavior. It can be simplified only as a
 dedicated cleanup; it is not evidence that the public API is missing children.
 
+`FieldTitle` intentionally retains the upstream `data-slot="field-label"` value so Field layout selectors treat a title
+as label content. Do not rename the slot merely to mirror the component name without first redesigning those selectors.
+
+`FieldSeparator` also retains `data-content={!!children}`. It emits an explicit boolean-valued marker, and no current
+Field style treats `data-content` as a presence selector. Do not apply the `data-inset={value || undefined}` workaround
+without a real presence-based consumer.
+
 ### Storybook Contract
 
 Field uses one representative interactive `Default` story because its purpose is composition, not a collection of
@@ -229,6 +250,10 @@ supporting Input and conditional error:
 Field data-invalid  <-> Input aria-invalid <-> FieldError visibility
 Field data-disabled <-> Input disabled
 ```
+
+The two example errors stay inline at the single `FieldError` use site. JSX contextual typing validates them against
+`FieldErrorProps['errors']`; a story-local constant, `NonNullable`, or reconstructed error-item type would add ceremony
+without reuse or a new consumer boundary.
 
 Do not add unrelated checkbox or notification fields merely to prove that Field can contain them. A story-wide state
 control would then affect only one of several fields and make ownership unclear. Do not add LTR/RTL controls only for
