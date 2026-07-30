@@ -90,7 +90,11 @@ const fieldVariants = cva(
 	},
 )
 
-type FieldProps = ComponentProps<'div'> & VariantProps<typeof fieldVariants>
+type FieldProps = ComponentProps<'div'> &
+	VariantProps<typeof fieldVariants> & {
+		'data-disabled'?: boolean
+		'data-invalid'?: boolean
+	}
 
 type FieldOrientation = NonNullable<FieldProps['orientation']>
 
