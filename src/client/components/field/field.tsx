@@ -8,7 +8,8 @@ function FieldSet({ className, ...restProps }: FieldSetProps) {
 	return (
 		<fieldset
 			className={mcn(
-				'flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
+				'flex flex-col gap-4',
+				'has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3',
 				className,
 			)}
 			data-slot={'field-set'}
@@ -33,7 +34,8 @@ function FieldLegend({
 	return (
 		<legend
 			className={mcn(
-				'mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base',
+				'mb-1.5 font-medium',
+				'data-[variant=label]:text-sm data-[variant=legend]:text-base',
 				className,
 			)}
 			data-slot={'field-legend'}
@@ -49,7 +51,9 @@ function FieldGroup({ className, ...restProps }: FieldGroupProps) {
 	return (
 		<div
 			className={mcn(
-				'group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4',
+				'group/field-group @container/field-group flex w-full flex-col gap-5',
+				'data-[slot=checkbox-group]:gap-3',
+				'*:data-[slot=field-group]:gap-4',
 				className,
 			)}
 			data-slot={'field-group'}
@@ -66,10 +70,20 @@ const fieldVariants = cva(
 		},
 		variants: {
 			orientation: {
-				horizontal:
-					'flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
-				responsive:
-					'flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+				horizontal: [
+					'flex-row items-center',
+					'has-[>[data-slot=field-content]]:items-start',
+					'*:data-[slot=field-label]:flex-auto',
+					'has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+				],
+				responsive: [
+					'flex-col *:w-full',
+					'@md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto',
+					'@md/field-group:has-[>[data-slot=field-content]]:items-start',
+					'@md/field-group:*:data-[slot=field-label]:flex-auto',
+					'[&>.sr-only]:w-auto',
+					'@md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px',
+				],
 				vertical: 'flex-col *:w-full [&>.sr-only]:w-auto',
 			},
 		},

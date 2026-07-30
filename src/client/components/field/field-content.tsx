@@ -23,7 +23,12 @@ function FieldLabel({ className, ...restProps }: FieldLabelProps) {
 	return (
 		<Label
 			className={mcn(
-				'group/field-label peer/field-label flex w-fit gap-2 leading-snug has-[>[data-slot=field]]:rounded-nui-lg has-[>[data-slot=field]]:border has-data-checked:border-nui-primary/30 has-data-checked:bg-nui-primary/5 *:data-[slot=field]:p-2.5 group-data-[disabled=true]/field:opacity-50 dark:has-data-checked:border-nui-primary/20 dark:has-data-checked:bg-nui-primary/10',
+				'group/field-label peer/field-label flex w-fit gap-2 leading-snug',
+				'has-[>[data-slot=field]]:rounded-nui-lg has-[>[data-slot=field]]:border',
+				'has-data-checked:border-nui-primary/30 has-data-checked:bg-nui-primary/5',
+				'*:data-[slot=field]:p-2.5',
+				'group-data-[disabled=true]/field:opacity-50',
+				'dark:has-data-checked:border-nui-primary/20 dark:has-data-checked:bg-nui-primary/10',
 				'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
 				className,
 			)}
@@ -39,7 +44,8 @@ function FieldTitle({ className, ...restProps }: FieldTitleProps) {
 	return (
 		<div
 			className={mcn(
-				'flex w-fit items-center gap-2 font-medium text-sm group-data-[disabled=true]/field:opacity-50',
+				'flex w-fit items-center gap-2 font-medium text-sm',
+				'group-data-[disabled=true]/field:opacity-50',
 				className,
 			)}
 			data-slot={'field-label'}
@@ -54,7 +60,9 @@ function FieldDescription({ className, ...restProps }: FieldDescriptionProps) {
 	return (
 		<p
 			className={mcn(
-				'text-start font-normal text-nui-muted-foreground text-sm leading-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
+				'text-start font-normal text-nui-muted-foreground text-sm leading-normal',
+				'group-has-data-horizontal/field:text-balance',
+				'[[data-variant=legend]+&]:-mt-1.5',
 				'nth-last-2:-mt-1 last:mt-0',
 				'[&>a:hover]:text-nui-primary [&>a]:underline [&>a]:underline-offset-4',
 				className,

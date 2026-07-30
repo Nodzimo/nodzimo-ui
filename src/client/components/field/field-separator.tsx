@@ -14,7 +14,8 @@ function FieldSeparator({
 	return (
 		<div
 			className={mcn(
-				'relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2',
+				'relative -my-2 h-5 text-sm',
+				'group-data-[variant=outline]/field-group:-mb-2',
 				className,
 			)}
 			data-content={!!children}
