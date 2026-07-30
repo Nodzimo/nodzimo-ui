@@ -1,10 +1,12 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { type ComponentProps, type ReactNode, useMemo } from 'react'
 import { Separator } from '#client/components/separator'
-import { Label } from '#core/components/label'
+import { Label, type LabelProps } from '#core/components/label'
 import { mcn } from '#lib'
 
-function FieldSet({ className, ...restProps }: ComponentProps<'fieldset'>) {
+type FieldSetProps = ComponentProps<'fieldset'>
+
+function FieldSet({ className, ...restProps }: FieldSetProps) {
 	return (
 		<fieldset
 			className={mcn(
@@ -17,11 +19,19 @@ function FieldSet({ className, ...restProps }: ComponentProps<'fieldset'>) {
 	)
 }
 
+const FIELD_LEGEND_VARIANTS = Object.freeze(['legend', 'label'] as const)
+
+type FieldLegendVariant = (typeof FIELD_LEGEND_VARIANTS)[number]
+
+type FieldLegendProps = ComponentProps<'legend'> & {
+	variant?: FieldLegendVariant
+}
+
 function FieldLegend({
 	className,
 	variant = 'legend',
 	...restProps
-}: ComponentProps<'legend'> & { variant?: 'legend' | 'label' }) {
+}: FieldLegendProps) {
 	return (
 		<legend
 			className={mcn(
@@ -35,7 +45,9 @@ function FieldLegend({
 	)
 }
 
-function FieldGroup({ className, ...restProps }: ComponentProps<'div'>) {
+type FieldGroupProps = ComponentProps<'div'>
+
+function FieldGroup({ className, ...restProps }: FieldGroupProps) {
 	return (
 		<div
 			className={mcn(
@@ -66,11 +78,21 @@ const fieldVariants = cva(
 	},
 )
 
+type FieldProps = ComponentProps<'div'> & VariantProps<typeof fieldVariants>
+
+type FieldOrientation = NonNullable<FieldProps['orientation']>
+
+const FIELD_ORIENTATIONS = Object.freeze([
+	'vertical',
+	'horizontal',
+	'responsive',
+] as const satisfies readonly FieldOrientation[])
+
 function Field({
 	className,
 	orientation = 'vertical',
 	...restProps
-}: ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
+}: FieldProps) {
 	return (
 		// biome-ignore lint/a11y/useSemanticElements: Field groups one control while FieldSet provides the semantic fieldset for related controls
 		<div
@@ -83,7 +105,9 @@ function Field({
 	)
 }
 
-function FieldContent({ className, ...restProps }: ComponentProps<'div'>) {
+type FieldContentProps = ComponentProps<'div'>
+
+function FieldContent({ className, ...restProps }: FieldContentProps) {
 	return (
 		<div
 			className={mcn(
@@ -96,7 +120,9 @@ function FieldContent({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function FieldLabel({ className, ...restProps }: ComponentProps<typeof Label>) {
+type FieldLabelProps = LabelProps
+
+function FieldLabel({ className, ...restProps }: FieldLabelProps) {
 	return (
 		<Label
 			className={mcn(
@@ -110,7 +136,9 @@ function FieldLabel({ className, ...restProps }: ComponentProps<typeof Label>) {
 	)
 }
 
-function FieldTitle({ className, ...restProps }: ComponentProps<'div'>) {
+type FieldTitleProps = ComponentProps<'div'>
+
+function FieldTitle({ className, ...restProps }: FieldTitleProps) {
 	return (
 		<div
 			className={mcn(
@@ -123,7 +151,9 @@ function FieldTitle({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function FieldDescription({ className, ...restProps }: ComponentProps<'p'>) {
+type FieldDescriptionProps = ComponentProps<'p'>
+
+function FieldDescription({ className, ...restProps }: FieldDescriptionProps) {
 	return (
 		<p
 			className={mcn(
@@ -138,13 +168,15 @@ function FieldDescription({ className, ...restProps }: ComponentProps<'p'>) {
 	)
 }
 
+type FieldSeparatorProps = ComponentProps<'div'> & {
+	children?: ReactNode
+}
+
 function FieldSeparator({
 	children,
 	className,
 	...restProps
-}: ComponentProps<'div'> & {
-	children?: ReactNode
-}) {
+}: FieldSeparatorProps) {
 	return (
 		<div
 			className={mcn(
@@ -170,14 +202,16 @@ function FieldSeparator({
 	)
 }
 
+type FieldErrorProps = ComponentProps<'div'> & {
+	errors?: Array<{ message?: string } | undefined>
+}
+
 function FieldError({
 	className,
 	children,
 	errors,
 	...restProps
-}: ComponentProps<'div'> & {
-	errors?: Array<{ message?: string } | undefined>
-}) {
+}: FieldErrorProps) {
 	const content = useMemo(() => {
 		if (children) {
 			return children
@@ -223,14 +257,28 @@ function FieldError({
 }
 
 export {
+	FIELD_LEGEND_VARIANTS,
+	FIELD_ORIENTATIONS,
 	Field,
 	FieldContent,
+	type FieldContentProps,
 	FieldDescription,
+	type FieldDescriptionProps,
 	FieldError,
+	type FieldErrorProps,
 	FieldGroup,
+	type FieldGroupProps,
 	FieldLabel,
+	type FieldLabelProps,
 	FieldLegend,
+	type FieldLegendProps,
+	type FieldLegendVariant,
+	type FieldOrientation,
+	type FieldProps,
 	FieldSeparator,
+	type FieldSeparatorProps,
 	FieldSet,
+	type FieldSetProps,
 	FieldTitle,
+	type FieldTitleProps,
 }

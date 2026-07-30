@@ -1,6 +1,7 @@
 export * from './button'
 export * from './checkbox'
 export * from './dropdown-menu'
+export * from './field'
 export * from './input'
 export * from './select'
 export * from './separator'
