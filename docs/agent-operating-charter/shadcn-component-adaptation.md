@@ -267,6 +267,8 @@ callbacks or controlled-state plumbing merely because they appear in the full AP
   examples.
 - [shadcn Select](https://ui.shadcn.com/docs/components/base/select): source composition, positioning, Disabled, and
   Invalid examples.
+- [Field Component Adaptation Decision](field-component-adaptation-decision.md): Field semantics, state attributes,
+  public API, decomposition, imports, suppressions, and Storybook composition.
 - [shadcn RTL](https://ui.shadcn.com/docs/rtl): CLI logical-property transforms, `rtl:rotate-180`, logical animations,
   and the portaled `dir` caveat.
 - [Base UI Menu](https://base-ui.com/react/components/menu): authoritative part ownership, defaults, multiple triggers,

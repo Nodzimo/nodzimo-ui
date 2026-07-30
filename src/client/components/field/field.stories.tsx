@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Input } from '#client/components/input'
+import { Input } from '#client'
 import {
 	STRING_UNION_SUMMARY,
 	UNION_SEPARATOR,

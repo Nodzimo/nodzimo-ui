@@ -4,8 +4,8 @@
 
 - Dependency graph checks use `dependency-cruiser`; do not replace these deterministic checks with an agent skill.
 - `check:deps` cruises `src` and is the regular import/dependency graph check.
-- `check:deps-graph` generates `dependency-graph.svg` for manual inspection and requires Graphviz `dot` to be
-  installed and available on `PATH`.
+- `check:deps-graph` generates `dependency-graph.svg` for manual inspection and requires Graphviz `dot` to be installed
+  and available on `PATH`.
 
 ### Rules
 
@@ -15,4 +15,6 @@
   `not-to-dev-dep` production rule so imports such as `storybook/test` can remain in `devDependencies`.
 - React and React DOM are expected peer dependencies for this UI library. Imports from React in library source are not a
   dependency violation; consumers provide React at runtime, while the project keeps React in dev dependencies for local
-  development.
+  development. Exclude peer dependencies semantically from `not-to-dev-dep`; if React is removed from
+  `peerDependencies`, its runtime import becomes an `npm-dev` violation again. Keep the intentional React and React DOM
+  paths explicit in `no-duplicate-dep-types` and `peer-deps-used`.

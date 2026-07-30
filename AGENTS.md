@@ -217,6 +217,15 @@ related Storybook decisions are recorded together to prevent repeating the upstr
 See
 [docs/agent-operating-charter/checkbox-base-ui-state-and-disabled-decision.md](docs/agent-operating-charter/checkbox-base-ui-state-and-disabled-decision.md).
 
+## Field Component Adaptation Decision
+
+Field composition, Label and FieldSet boundaries, state data attributes, orientation, public API, decomposition,
+imports, suppressions, and the representative Storybook contract are recorded together to prevent repeating the upstream
+investigation.
+
+See
+[docs/agent-operating-charter/field-component-adaptation-decision.md](docs/agent-operating-charter/field-component-adaptation-decision.md).
+
 ## Select API
 
 Select preserves the Base UI compound contract while exporting focused readonly option types for strict flat-option data

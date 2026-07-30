@@ -113,6 +113,10 @@ module.exports = {
 				// consider type-only dependencyTypes for this rule
 				dependencyTypesNot: ['type-only'],
 				moreThanOneDependencyType: true,
+				pathNot: [
+					'^node_modules/react(?:/|$)',
+					'^node_modules/react-dom(?:/|$)',
+				],
 			},
 		},
 
@@ -147,8 +151,9 @@ module.exports = {
 			to: {
 				dependencyTypes: ['npm-dev'],
 				// type only dependencies are not a problem as they don't end up in the
-				// production code or are ignored by the runtime.
-				dependencyTypesNot: ['type-only'],
+				// production code or are ignored by the runtime. Peer dependencies are
+				// provided by the consumer and may also be development dependencies locally.
+				dependencyTypesNot: ['npm-peer', 'type-only'],
 				pathNot: ['node_modules/@types/'],
 			},
 		},
