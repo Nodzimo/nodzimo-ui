@@ -2,25 +2,25 @@ export {
 	FIELD_LEGEND_VARIANTS,
 	FIELD_ORIENTATIONS,
 	Field,
-	FieldContent,
-	type FieldContentProps,
-	FieldDescription,
-	type FieldDescriptionProps,
-	FieldError,
-	type FieldErrorProps,
 	FieldGroup,
 	type FieldGroupProps,
-	FieldLabel,
-	type FieldLabelProps,
 	FieldLegend,
 	type FieldLegendProps,
 	type FieldLegendVariant,
 	type FieldOrientation,
 	type FieldProps,
-	FieldSeparator,
-	type FieldSeparatorProps,
 	FieldSet,
 	type FieldSetProps,
+} from './field'
+export {
+	FieldContent,
+	type FieldContentProps,
+	FieldDescription,
+	type FieldDescriptionProps,
+	FieldLabel,
+	type FieldLabelProps,
 	FieldTitle,
 	type FieldTitleProps,
-} from './field'
+} from './field-content'
+export { FieldError, type FieldErrorProps } from './field-error'
+export { FieldSeparator, type FieldSeparatorProps } from './field-separator'
