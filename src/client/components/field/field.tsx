@@ -49,7 +49,7 @@ function FieldGroup({ className, ...props }: ComponentProps<'div'>) {
 }
 
 const fieldVariants = cva(
-	'group/field flex w-full gap-2 data-[invalid=true]:text-destructive',
+	'group/field flex w-full gap-2 data-[invalid=true]:text-nui-destructive',
 	{
 		defaultVariants: {
 			orientation: 'vertical',
@@ -100,7 +100,7 @@ function FieldLabel({ className, ...props }: ComponentProps<typeof Label>) {
 	return (
 		<Label
 			className={mcn(
-				'group/field-label peer/field-label flex w-fit gap-2 leading-snug has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border has-data-checked:border-primary/30 has-data-checked:bg-primary/5 *:data-[slot=field]:p-2.5 group-data-[disabled=true]/field:opacity-50 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10',
+				'group/field-label peer/field-label flex w-fit gap-2 leading-snug has-[>[data-slot=field]]:rounded-nui-lg has-[>[data-slot=field]]:border has-data-checked:border-nui-primary/30 has-data-checked:bg-nui-primary/5 *:data-[slot=field]:p-2.5 group-data-[disabled=true]/field:opacity-50 dark:has-data-checked:border-nui-primary/20 dark:has-data-checked:bg-nui-primary/10',
 				'has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col',
 				className,
 			)}
@@ -127,9 +127,9 @@ function FieldDescription({ className, ...props }: ComponentProps<'p'>) {
 	return (
 		<p
 			className={mcn(
-				'text-left font-normal text-muted-foreground text-sm leading-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
+				'text-left font-normal text-nui-muted-foreground text-sm leading-normal group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5',
 				'nth-last-2:-mt-1 last:mt-0',
-				'[&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4',
+				'[&>a:hover]:text-nui-primary [&>a]:underline [&>a]:underline-offset-4',
 				className,
 			)}
 			data-slot={'field-description'}
@@ -159,7 +159,7 @@ function FieldSeparator({
 			{children && (
 				<span
 					className={
-						'relative mx-auto block w-fit bg-background px-2 text-muted-foreground'
+						'relative mx-auto block w-fit bg-nui-background px-2 text-nui-muted-foreground'
 					}
 					data-slot={'field-separator-content'}
 				>
@@ -212,7 +212,7 @@ function FieldError({
 
 	return (
 		<div
-			className={mcn('font-normal text-destructive text-sm', className)}
+			className={mcn('font-normal text-nui-destructive text-sm', className)}
 			data-slot={'field-error'}
 			role={'alert'}
 			{...props}
