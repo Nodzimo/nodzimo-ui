@@ -78,37 +78,37 @@ const meta = {
 
 		return (
 			<FieldSet className={'w-md'}>
-				<FieldLegend variant={legendVariant}>Account settings</FieldLegend>
-				<FieldDescription>
-					Manage your public profile and notification preferences
-				</FieldDescription>
+				<FieldLegend variant={legendVariant}>Profile</FieldLegend>
+				<FieldDescription>Fill in your profile information.</FieldDescription>
 				<FieldGroup>
 					<Field {...restArgs}>
-						<FieldLabel htmlFor={'field-story-username'}>Username</FieldLabel>
-						<FieldContent className={'min-w-64'}>
-							<Input
-								aria-invalid={dataInvalid}
-								autoComplete={'username'}
-								disabled={dataDisabled}
-								id={'field-story-username'}
-								placeholder={'ExampleUser123'}
-							/>
+						<FieldContent>
+							<FieldLabel htmlFor={'field-story-name'}>Name</FieldLabel>
 							<FieldDescription>
-								Choose a unique name for your public profile
+								Provide your full name for identification
 							</FieldDescription>
 							{dataInvalid && (
 								<FieldError
 									errors={[
 										{
-											message: 'Username must be at least 3 characters',
+											message: 'Name must be at least 2 characters',
 										},
 										{
-											message: 'Use only letters, numbers, and underscores',
+											message:
+												'Use only letters, spaces, hyphens, and apostrophes',
 										},
 									]}
 								/>
 							)}
 						</FieldContent>
+						<Input
+							aria-invalid={dataInvalid}
+							autoComplete={'name'}
+							className={'w-auto'}
+							disabled={dataDisabled}
+							id={'field-story-name'}
+							placeholder={'Sefo Nodzimo'}
+						/>
 					</Field>
 				</FieldGroup>
 			</FieldSet>
