@@ -251,6 +251,11 @@ Field data-invalid  <-> Input aria-invalid <-> FieldError visibility
 Field data-disabled <-> Input disabled
 ```
 
+`orientation` uses `FIELD_ORIENTATIONS` for its control options and `FIELD_ORIENTATIONS[0]` for the initial story arg.
+It intentionally has no handwritten `table.defaultValue`: the current Storybook surface already reports the component
+default correctly, so another summary would be redundant. The component default remains `vertical`; do not confuse
+omitting duplicate Storybook metadata with removing that runtime API default.
+
 The two example errors stay inline at the single `FieldError` use site. JSX contextual typing validates them against
 `FieldErrorProps['errors']`; a story-local constant, `NonNullable`, or reconstructed error-item type would add ceremony
 without reuse or a new consumer boundary.
