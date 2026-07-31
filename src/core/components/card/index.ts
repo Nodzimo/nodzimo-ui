@@ -1,9 +1,18 @@
 export {
+	CARD_SIZES,
 	Card,
 	CardAction,
+	type CardActionProps,
 	CardContent,
+	type CardContentProps,
 	CardDescription,
+	type CardDescriptionProps,
 	CardFooter,
+	type CardFooterProps,
 	CardHeader,
+	type CardHeaderProps,
+	type CardProps,
+	type CardSize,
 	CardTitle,
+	type CardTitleProps,
 } from './card'

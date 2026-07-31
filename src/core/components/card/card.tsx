@@ -1,11 +1,15 @@
 import type { ComponentProps } from 'react'
 import { mcn } from '#lib'
 
-function Card({
-	className,
-	size = 'default',
-	...restProps
-}: ComponentProps<'div'> & { size?: 'default' | 'sm' }) {
+const CARD_SIZES = Object.freeze(['default', 'sm'] as const)
+
+type CardSize = (typeof CARD_SIZES)[number]
+
+type CardProps = ComponentProps<'div'> & {
+	size?: CardSize
+}
+
+function Card({ className, size = 'default', ...restProps }: CardProps) {
 	return (
 		<div
 			className={mcn(
@@ -28,7 +32,9 @@ function Card({
 	)
 }
 
-function CardHeader({ className, ...restProps }: ComponentProps<'div'>) {
+type CardHeaderProps = ComponentProps<'div'>
+
+function CardHeader({ className, ...restProps }: CardHeaderProps) {
 	return (
 		<div
 			className={mcn(
@@ -45,7 +51,9 @@ function CardHeader({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function CardTitle({ className, ...restProps }: ComponentProps<'div'>) {
+type CardTitleProps = ComponentProps<'div'>
+
+function CardTitle({ className, ...restProps }: CardTitleProps) {
 	return (
 		<div
 			className={mcn(
@@ -58,7 +66,9 @@ function CardTitle({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function CardDescription({ className, ...restProps }: ComponentProps<'div'>) {
+type CardDescriptionProps = ComponentProps<'div'>
+
+function CardDescription({ className, ...restProps }: CardDescriptionProps) {
 	return (
 		<div
 			className={mcn('text-nui-muted-foreground text-sm', className)}
@@ -68,7 +78,9 @@ function CardDescription({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function CardAction({ className, ...restProps }: ComponentProps<'div'>) {
+type CardActionProps = ComponentProps<'div'>
+
+function CardAction({ className, ...restProps }: CardActionProps) {
 	return (
 		<div
 			className={mcn(
@@ -81,7 +93,9 @@ function CardAction({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function CardContent({ className, ...restProps }: ComponentProps<'div'>) {
+type CardContentProps = ComponentProps<'div'>
+
+function CardContent({ className, ...restProps }: CardContentProps) {
 	return (
 		<div
 			className={mcn('px-(--nui-card-spacing)', className)}
@@ -91,7 +105,9 @@ function CardContent({ className, ...restProps }: ComponentProps<'div'>) {
 	)
 }
 
-function CardFooter({ className, ...restProps }: ComponentProps<'div'>) {
+type CardFooterProps = ComponentProps<'div'>
+
+function CardFooter({ className, ...restProps }: CardFooterProps) {
 	return (
 		<div
 			className={mcn(
@@ -105,11 +121,20 @@ function CardFooter({ className, ...restProps }: ComponentProps<'div'>) {
 }
 
 export {
+	CARD_SIZES,
 	Card,
 	CardAction,
+	type CardActionProps,
 	CardContent,
+	type CardContentProps,
 	CardDescription,
+	type CardDescriptionProps,
 	CardFooter,
+	type CardFooterProps,
 	CardHeader,
+	type CardHeaderProps,
+	type CardProps,
+	type CardSize,
 	CardTitle,
+	type CardTitleProps,
 }
