@@ -1,0 +1,99 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+	<title>Terms of Service example illustration</title>
+	<defs>
+		<linearGradient
+			gradientUnits="userSpaceOnUse"
+			id="background"
+			x1="80"
+			x2="720"
+			y1="30"
+			y2="420"
+		>
+			<stop offset="0" stop-color="#172554" />
+			<stop offset="1" stop-color="#312e81" />
+		</linearGradient>
+		<linearGradient
+			gradientUnits="userSpaceOnUse"
+			id="accent"
+			x1="315"
+			x2="510"
+			y1="145"
+			y2="330"
+		>
+			<stop offset="0" stop-color="#67e8f9" />
+			<stop offset="1" stop-color="#a78bfa" />
+		</linearGradient>
+		<pattern height="40" id="grid" patternUnits="userSpaceOnUse" width="40">
+			<path d="M40 0H0V40" fill="none" stroke="#c4b5fd" stroke-opacity=".09" />
+		</pattern>
+	</defs>
+	<rect fill="url(#background)" height="450" width="800" />
+	<rect fill="url(#grid)" height="450" width="800" />
+	<g transform="rotate(-5 400 225)">
+		<rect
+			fill="#818cf8"
+			fill-opacity=".16"
+			height="284"
+			rx="24"
+			stroke="#a5b4fc"
+			stroke-opacity=".35"
+			width="300"
+			x="250"
+			y="92"
+		/>
+		<rect
+			fill="#eef2ff"
+			fill-opacity=".96"
+			height="284"
+			rx="24"
+			width="300"
+			x="278"
+			y="68"
+		/>
+		<rect
+			fill="#4338ca"
+			fill-opacity=".72"
+			height="12"
+			rx="6"
+			width="118"
+			x="318"
+			y="116"
+		/>
+		<rect
+			fill="#6366f1"
+			fill-opacity=".24"
+			height="8"
+			rx="4"
+			width="220"
+			x="318"
+			y="158"
+		/>
+		<rect
+			fill="#6366f1"
+			fill-opacity=".24"
+			height="8"
+			rx="4"
+			width="184"
+			x="318"
+			y="184"
+		/>
+		<rect
+			fill="#6366f1"
+			fill-opacity=".24"
+			height="8"
+			rx="4"
+			width="204"
+			x="318"
+			y="210"
+		/>
+		<circle cx="462" cy="286" fill="url(#accent)" r="38" />
+		<path
+			d="m443 286 13 13 26-30"
+			fill="none"
+			stroke="#172554"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="10"
+		/>
+	</g>
+</svg>
