@@ -9,7 +9,7 @@ function Card({
 	return (
 		<div
 			className={mcn(
-				'group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-card-foreground text-sm ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 has-data-[slot=card-footer]:pb-0 data-[size=sm]:has-data-[slot=card-footer]:pb-0 data-[size=sm]:[--card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl',
+				'group/card flex flex-col gap-(--nui-card-spacing) overflow-hidden rounded-nui-xl bg-nui-card py-(--nui-card-spacing) text-nui-card-foreground text-sm ring-1 ring-nui-foreground/10 [--nui-card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 has-data-[slot=card-footer]:pb-0 data-[size=sm]:has-data-[slot=card-footer]:pb-0 data-[size=sm]:[--nui-card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-nui-xl *:[img:last-child]:rounded-b-nui-xl',
 				className,
 			)}
 			data-size={size}
@@ -23,7 +23,7 @@ function CardHeader({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
-				'group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing)',
+				'group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-nui-xl px-(--nui-card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--nui-card-spacing)',
 				className,
 			)}
 			data-slot={'card-header'}
@@ -36,7 +36,7 @@ function CardTitle({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
-				'cn-font-heading font-medium text-base leading-snug group-data-[size=sm]/card:text-sm',
+				'font-medium font-nui-heading text-base leading-snug group-data-[size=sm]/card:text-sm',
 				className,
 			)}
 			data-slot={'card-title'}
@@ -48,7 +48,7 @@ function CardTitle({ className, ...restProps }: ComponentProps<'div'>) {
 function CardDescription({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
-			className={mcn('text-muted-foreground text-sm', className)}
+			className={mcn('text-nui-muted-foreground text-sm', className)}
 			data-slot={'card-description'}
 			{...restProps}
 		/>
@@ -71,7 +71,7 @@ function CardAction({ className, ...restProps }: ComponentProps<'div'>) {
 function CardContent({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
-			className={mcn('px-(--card-spacing)', className)}
+			className={mcn('px-(--nui-card-spacing)', className)}
 			data-slot={'card-content'}
 			{...restProps}
 		/>
@@ -82,7 +82,7 @@ function CardFooter({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
-				'flex items-center rounded-b-xl border-t bg-muted/50 p-(--card-spacing)',
+				'flex items-center rounded-b-nui-xl border-t bg-nui-muted/50 p-(--nui-card-spacing)',
 				className,
 			)}
 			data-slot={'card-footer'}
