@@ -9,7 +9,16 @@ function Card({
 	return (
 		<div
 			className={mcn(
-				'group/card flex flex-col gap-(--nui-card-spacing) overflow-hidden rounded-nui-xl bg-nui-card py-(--nui-card-spacing) text-nui-card-foreground text-sm ring-1 ring-nui-foreground/10 [--nui-card-spacing:--spacing(4)] has-[>img:first-child]:pt-0 has-data-[slot=card-footer]:pb-0 data-[size=sm]:has-data-[slot=card-footer]:pb-0 data-[size=sm]:[--nui-card-spacing:--spacing(3)] *:[img:first-child]:rounded-t-nui-xl *:[img:last-child]:rounded-b-nui-xl',
+				'group/card flex flex-col overflow-hidden',
+				'gap-(--nui-card-spacing) py-(--nui-card-spacing)',
+				'text-nui-card-foreground text-sm',
+				'rounded-nui-xl ring-1 ring-nui-foreground/10',
+				'bg-nui-card',
+				'[--nui-card-spacing:--spacing(4)]',
+				'has-[>img:first-child]:pt-0',
+				'has-data-[slot=card-footer]:pb-0',
+				'data-[size=sm]:has-data-[slot=card-footer]:pb-0 data-[size=sm]:[--nui-card-spacing:--spacing(3)]',
+				'*:[img:first-child]:rounded-t-nui-xl *:[img:last-child]:rounded-b-nui-xl',
 				className,
 			)}
 			data-size={size}
@@ -23,7 +32,11 @@ function CardHeader({ className, ...restProps }: ComponentProps<'div'>) {
 	return (
 		<div
 			className={mcn(
-				'group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-nui-xl px-(--nui-card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--nui-card-spacing)',
+				'group/card-header @container/card-header grid auto-rows-min items-start',
+				'gap-1 px-(--nui-card-spacing)',
+				'rounded-t-nui-xl',
+				'has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]',
+				'[.border-b]:pb-(--nui-card-spacing)',
 				className,
 			)}
 			data-slot={'card-header'}
