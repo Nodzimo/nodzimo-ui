@@ -7,6 +7,7 @@ This reference is the compact working aid for `theme-token-adapter`. Do not dupl
 
 - [Canonical Docs](#canonical-docs)
 - [Semantic Utility Prefixes](#semantic-utility-prefixes)
+- [Heading Font](#heading-font)
 - [Radius And Spacing](#radius-and-spacing)
 - [Logical Direction Utilities](#logical-direction-utilities)
 - [shadcn Registry Markers And Portal Motion](#shadcn-registry-markers-and-portal-motion)
@@ -71,6 +72,18 @@ aria-expanded:text-foreground -> aria-expanded:text-nui-foreground
 aria-invalid:border-destructive -> aria-invalid:border-nui-destructive
 focus-visible:ring-destructive/20 -> focus-visible:ring-nui-destructive/20
 ```
+
+## Heading Font
+
+Resolve shadcn's conditional heading-font marker to the NUI public typography contract:
+
+```text
+cn-font-heading -> font-nui-heading
+--font-heading -> --nui-font-heading
+```
+
+`font-nui-heading` reads the optional runtime `--nui-font-heading` value and inherits the surrounding font when the
+consumer does not supply one. The consumer owns loading the actual font file.
 
 ## Radius And Spacing
 

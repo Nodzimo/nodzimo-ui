@@ -268,6 +268,40 @@ primary = the branded signal voice
 If everything uses `foreground`, the interface can become loud in a different way: not colorful, but verbally flat.
 Descriptions, hints, metadata, and disabled-adjacent explanations should not compete with labels and values.
 
+### Typography Tokens
+
+#### Heading Font
+
+`font-heading` is an optional typography role for titles that should use a distinct heading family.
+
+It does not name or load a particular font. NUI follows the surrounding font by default. A consumer that wants a
+separate heading voice loads its chosen font and assigns that font-family to the NUI heading token.
+
+Use the role for:
+
+- component titles that intentionally follow the shared heading typography
+- repeated headings that should change together when the consumer supplies a heading family
+
+Do not use the role to bundle a brand font into the component library or to make one isolated label look decorative.
+
+Mental model:
+
+```text
+No heading font supplied:
+the title speaks with the surrounding interface voice.
+
+Heading font supplied:
+the same title uses the consumer's chosen heading voice.
+```
+
+The question:
+
+```text
+Is this text performing a reusable heading role, or is it merely emphasized local text?
+```
+
+Use heading typography for the reusable role. Use weight, size, and ordinary inheritance for local emphasis.
+
 ### Surface Tokens
 
 Surfaces are objects placed inside the world.
@@ -376,8 +410,8 @@ Pay now
 Confirm
 ```
 
-Do not use `primary` for every clickable thing. Clickability is not enough. `primary` means highest action emphasis.
-Do not use it for ordinary selected, active, or highlighted local state either. That is usually `accent`.
+Do not use `primary` for every clickable thing. Clickability is not enough. `primary` means highest action emphasis. Do
+not use it for ordinary selected, active, or highlighted local state either. That is usually `accent`.
 
 The question:
 
@@ -1177,8 +1211,7 @@ The sidebar tokens mirror the global token logic, but inside a sidebar domain. T
 surface and interaction rhythm without stealing the general `background`, `accent`, or `border` values from the rest of
 the app.
 
-Do not use sidebar tokens as extra colors for ordinary cards or buttons. They are scoped roles, not bonus palette
-slots.
+Do not use sidebar tokens as extra colors for ordinary cards or buttons. They are scoped roles, not bonus palette slots.
 
 ### Decision Questions
 
@@ -1195,6 +1228,7 @@ When choosing a token, ask these questions in order:
 9. Is this a control boundary?
 10. Is this focus location?
 11. Is this a specialized domain such as chart or sidebar?
+12. Is this a reusable heading role that should accept the consumer's heading family?
 
 That gives the practical mapping:
 
@@ -1214,6 +1248,7 @@ control edge -> input
 focus location -> ring
 data series -> chart-*
 sidebar domain -> sidebar-*
+optional heading family -> font-heading
 ```
 
 ### Quick Reference
@@ -1280,6 +1315,9 @@ Data visualization series.
 
 sidebar-*
 Sidebar-scoped surfaces, actions, accents, boundaries, and focus.
+
+font-heading
+Optional heading family. Inherits the surrounding font unless the consumer supplies one.
 ```
 
 The shortest version:

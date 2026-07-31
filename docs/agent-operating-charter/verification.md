@@ -69,10 +69,10 @@
       the vendored source file. See
       [Tailwind shadcn Extensions Decision](tailwind-shadcn-extensions-decision.md).
     - Compile an isolated Tailwind input with `source(none)`, import `@nodzimo/ui/theme.css`, and safelist
-      representative consumer-only classes absent from package component source. Cover at least color, border/ring,
-      radius, spacing, opacity, interaction, and class-based dark forms such as `bg-nui-card`, `ring-nui-ring`,
-      `rounded-nui-4xl`,
-      `gap-nui-md`, `hover:bg-nui-accent/80`, and `dark:text-nui-sidebar-foreground`.
+      representative consumer-only classes absent from package component source. Cover at least typography, color,
+      border/ring, radius, spacing, opacity, interaction, and class-based dark forms such as `font-nui-heading`,
+      `bg-nui-card`, `ring-nui-ring`, `rounded-nui-4xl`, `gap-nui-md`, `hover:bg-nui-accent/80`, and
+      `dark:text-nui-sidebar-foreground`.
     - Confirm the consumer compiler accepts `@apply` with a mapped NUI utility. This catches the failure mode where raw
       `--nui-*` values ship but the consumer Tailwind compiler never receives the `@theme` mapping.
     - Confirm the built link contract contains one grouped rest rule plus grouped hover and active rules for

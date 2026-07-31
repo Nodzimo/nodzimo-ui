@@ -50,17 +50,21 @@ For the duplicate-reset audit, measured artifact evidence, rejected alternatives
 
 ### Runtime Tokens Vs Theme Mappings
 
-- Separate runtime CSS variables from Tailwind theme mappings. A `:root` variable such as `--nui-background` or
-  `--nui-spacing-md` is emitted into the built CSS as part of the package stylesheet contract and can be read at runtime
-  with `var(--nui-*)`. An `@theme inline` token such as `--color-nui-background` or `--spacing-nui-md` teaches Tailwind
-  how to generate utilities such as `bg-nui-background` or `gap-nui-md`; it is not by itself the public runtime token a
-  consumer should read with `var(...)`.
+- Separate runtime CSS variables from Tailwind theme mappings. A `:root` variable such as `--nui-font-heading`,
+  `--nui-background`, or `--nui-spacing-md` is emitted into the built CSS as part of the package stylesheet contract and
+  can be read at runtime with `var(--nui-*)`. An `@theme inline` token such as `--font-nui-heading`,
+  `--color-nui-background`, or `--spacing-nui-md` teaches Tailwind how to generate utilities such as
+  `font-nui-heading`, `bg-nui-background`, or `gap-nui-md`; it is not by itself the public runtime token a consumer
+  should read with `var(...)`.
 - When a design-system value is a product token that consumers may use directly, define the raw `--nui-*` variable in
   `:root` and map the matching Tailwind utility token in `@theme inline`. Do not define package-facing tokens only in
   `@theme inline`, because that makes them compiler configuration rather than a stable runtime CSS-variable contract.
 - Keep raw runtime values in `src/library.css` and Tailwind mappings plus the class-based `dark` variant in
   `src/theme.css`. `src/library.css` imports `src/theme.css` so library and Storybook builds use the same mappings that
   consumers receive through `@nodzimo/ui/theme.css`.
+- `--nui-font-heading` is an optional runtime override. Consumers that want a distinct heading family load that font
+  themselves and assign its font-family stack to the variable; the default `inherit` value keeps NUI on the surrounding
+  application font. The compiled `font-nui-heading` utility must preserve the same inheritance fallback.
 
 For token naming and semantic roles, see [Theme Token Contract](theme-token-contract.md).
 

@@ -3,6 +3,7 @@
 @import "./theme.css";
 
 :root {
+	--nui-font-heading: inherit;
 	--nui-radius: 0.625rem;
 	--nui-background: oklch(1 0 0);
 	--nui-foreground: oklch(0.153 0.006 107.1);

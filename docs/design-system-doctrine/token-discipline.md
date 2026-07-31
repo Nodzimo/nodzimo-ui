@@ -47,6 +47,7 @@ input
 ring
 chart-*
 sidebar-*
+font-heading
 ```
 
 The NUI implementation prefixes these as raw variables and utilities:
@@ -57,6 +58,7 @@ bg-nui-primary
 text-nui-primary
 border-nui-border
 ring-nui-ring
+font-nui-heading
 ```
 
 Before adding a new token, ask:

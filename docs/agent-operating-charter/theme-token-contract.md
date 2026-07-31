@@ -3,8 +3,9 @@
 ### Namespace
 
 - Use the shadcn theme architecture as the baseline model, adapted for a publishable library.
-- All library-owned semantic tokens must use the `nui` namespace. Raw variables use `--nui-*`, Tailwind color mappings
-  use `--color-nui-*`, radius mappings use `--radius-nui-*`, and spacing mappings use `--spacing-nui-*`.
+- All library-owned semantic tokens must use the `nui` namespace. Raw variables use `--nui-*`, Tailwind font mappings
+  use `--font-nui-*`, color mappings use `--color-nui-*`, radius mappings use `--radius-nui-*`, and spacing mappings use
+  `--spacing-nui-*`.
 - Components must use NUI-prefixed semantic utilities such as `bg-nui-primary`, `text-nui-foreground`,
   `border-nui-border`, `ring-nui-ring`, and `rounded-nui-lg`.
 - Do not introduce unprefixed shadcn app-level tokens such as `--primary`, `bg-primary`, `border-border`, `ring-ring`,
@@ -61,9 +62,22 @@ For the research, rejected component-wrapper alternatives, selector rationale, a
     - `chart-1` through `chart-5`: default chart palette.
     - `sidebar` tokens: sidebar-specific surfaces, foregrounds, active/high-emphasis items, hover/selected states,
       borders, and rings.
+    - `font-heading`: optional heading typography for component titles and other intentional heading roles.
     - `radius`: the base corner-radius scale for cards, inputs, buttons, popovers, and derived `radius-nui-*` tokens.
 - The radius scale follows shadcn's model: `radius-nui-lg` is the base value from `--nui-radius`, smaller radii scale
   down from it, larger radii scale up from it, and changing `--nui-radius` updates the whole radius scale.
+
+### Heading Font
+
+- `--nui-font-heading` is the optional runtime font-family token for component titles and other intentional heading
+  roles. Its default is `inherit`, so NUI follows the consumer's surrounding typography unless the consumer opts in.
+- `--font-nui-heading: var(--nui-font-heading, inherit)` is the public Tailwind mapping that generates
+  `font-nui-heading`. Keep the fallback in the mapping so both the ready-built package CSS and a consumer Tailwind build
+  preserve inheritance when no custom value is supplied.
+- Consumers own font loading. A consumer may load any licensed font and set `--nui-font-heading` to its font-family
+  stack; NUI must not bundle a particular font file or force a brand-specific heading family.
+- Resolve shadcn's `cn-font-heading` install-time marker to `font-nui-heading` when adapting components. Do not ship the
+  marker or the unprefixed `font-heading` utility.
 
 ### RTL And Logical Motion
 

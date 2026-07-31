@@ -1,6 +1,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+	--font-nui-heading: var(--nui-font-heading, inherit);
+
 	--color-nui-background: var(--nui-background);
 	--color-nui-foreground: var(--nui-foreground);
 
