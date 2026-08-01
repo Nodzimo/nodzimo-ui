@@ -33,6 +33,9 @@
 - Do not manually rename generated files unless the generator contract is being updated.
 - Omit explicit `.ts` and `.tsx` extensions from TypeScript source imports when the project resolver can resolve the
   module. Extensionless imports survive `.ts` / `.tsx` renames better.
+- Exception: config modules loaded by Vite's native config loader must use explicit `.ts` paths for local TypeScript
+  imports, including `index.ts` when a directory barrel would otherwise be resolved implicitly. Keep this exception
+  local to native-loaded config infrastructure; do not generalize it to package or component source imports.
 - Keep extensions for non-TypeScript asset imports where the extension is the contract, such as CSS, raw Markdown, or
   query-suffixed imports.
 

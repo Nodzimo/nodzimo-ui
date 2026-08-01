@@ -4,6 +4,9 @@
     - `ui: 'src/index'`
     - `client: 'src/client'`
 - Only `formats: ['es']` is needed for the modern target.
+- Keep native-loaded config imports explicit and standards-compliant: import JSON with `with { type: 'json' }`, and
+  include `.ts` on local TypeScript config imports. This applies to Vite and Storybook build infrastructure, not to
+  ordinary package source imports. Avoid directory-index imports in this boundary; use the concrete module path.
 - The package intentionally targets the latest JavaScript surface: TypeScript app and Node configs use `target`, `lib`,
   and `module` set to `ESNext`, and Vite uses `build.target: 'esnext'` to keep library output modern with minimal
   transpilation. Keep this modern-only contract unless a real consumer needs a lower target.
@@ -13,8 +16,8 @@
     - `react-dom`
     - `react/jsx-runtime`
     - `react/compiler-runtime`
-- The rest of the runtime externalization contract is derived from `package.json` `dependencies + peerDependencies`.
-  Do not replace that derived matcher with a handwritten complete package list. See
+- The rest of the runtime externalization contract is derived from `package.json` `dependencies + peerDependencies`. Do
+  not replace that derived matcher with a handwritten complete package list. See
   [Dependency Concepts](dependency-concepts.md).
 - `react/compiler-runtime` is required because client output compiled by React Compiler imports it.
 - Adding a package to externals is not enough by itself. If built runtime code still imports that package, keep it in
@@ -24,8 +27,8 @@
 - `unplugin-dts` must use `tsconfigPath: 'tsconfig.app.json'`; the root `tsconfig.json` only contains project references
   from the Vite template.
 - `unplugin-dts` must set plugin-local `compilerOptions.rootDir: 'src'`. This is the explicit declaration emit root for
-  the library source tree and keeps bundled public declarations at `dist/ui.d.ts` and `dist/client.d.ts` instead
-  of allowing root inference to emit a `dist/src` declaration tree. This became important after the
+  the library source tree and keeps bundled public declarations at `dist/ui.d.ts` and `dist/client.d.ts` instead of
+  allowing root inference to emit a `dist/src` declaration tree. This became important after the
   `unplugin-dts@1.0.2` root-inference fix/behavior change exposed the previous implicit assumption.
 - `unplugin-dts` should exclude Storybook story files from public declarations, for example
   `exclude: ['**/*.stories.*']`.
@@ -46,10 +49,10 @@ dts({
 })
 ```
 
-- If API Extractor reports that `dist/client.d.ts` or `dist/ui.d.ts` does not exist, or if generated
-  declarations appear under `dist/src`, inspect `unplugin-dts` root-dir inference before adding path rewrite hooks.
-- Keep `@microsoft/api-extractor` in `devDependencies`; it is build-time tooling for bundled declarations, not a
-  runtime or peer dependency.
+- If API Extractor reports that `dist/client.d.ts` or `dist/ui.d.ts` does not exist, or if generated declarations appear
+  under `dist/src`, inspect `unplugin-dts` root-dir inference before adding path rewrite hooks.
+- Keep `@microsoft/api-extractor` in `devDependencies`; it is build-time tooling for bundled declarations, not a runtime
+  or peer dependency.
 - API Extractor may warn when its bundled TypeScript compiler is older than this project's TypeScript version. Treat
   that as a tooling-version warning, not a package blocker, when declaration output is correct and the latest API
   Extractor still bundles the older compiler.

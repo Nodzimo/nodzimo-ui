@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import dts from 'unplugin-dts/vite'
 import { defineConfig } from 'vite'
-import packageJson from './package.json'
+import packageJson from './package.json' with { type: 'json' }
 
 const clientCompilerIncludes = [/src[\\/]client\.ts$/, /src[\\/]client[\\/]/]
 const { dependencies, peerDependencies } = packageJson

@@ -25,6 +25,10 @@
 - Keep `.storybook/vite.config.ts` minimal and Storybook-specific. It should include the Tailwind Vite plugin so
   `.storybook/preview.css` compiles in the preview, but should not include `unplugin-dts`, `build.lib`, package
   externals, or declaration bundling.
+- Because Storybook's Vite config is loaded through Vite's native-config compatibility path, use explicit `.ts`
+  extensions for its local TypeScript imports. Import build plugins directly from their concrete module files rather
+  than through a directory barrel; this keeps the config compatible with native ESM resolution and avoids lint
+  exceptions.
 - Storybook builder may ignore most `build` options loaded from `viteConfigPath`. Use `.storybook/main.ts` `viteFinal`
   for final Storybook-only Vite overrides such as `build.chunkSizeWarningLimit`.
 - Storybook-only display pages and tools that are not package components belong under `.storybook/showcase`. Use this

@@ -51,7 +51,8 @@ Apply these only when local intent is clear:
 - Rename intentional module-scope immutable tables, mappings, option arrays, and defaults to `UPPER_SNAKE_CASE`.
 - Derive unions from literal tables instead of duplicating string unions by hand.
 - Rename hand-authored `.tsx` files to `.ts` when they contain no JSX, and use `.tsx` when JSX is present.
-- Remove explicit `.ts` / `.tsx` extensions from local TypeScript imports when the resolver can resolve the module.
+- Remove explicit `.ts` / `.tsx` extensions from local TypeScript imports when the resolver can resolve the module,
+  except in config modules loaded by Vite's native config loader, where explicit local `.ts` paths are required.
 - Mark partial Markdown snippets as `text` instead of `ts`, `tsx`, or another language when the snippet is not valid
   standalone code.
 - Apply `tailwind-class-formatter` to long Tailwind class lists without changing class tokens.
@@ -93,7 +94,8 @@ Report these unless the correct change is obvious from local context:
 - `type` and `interface` choices reflect TypeScript semantics, not preference.
 - Long Tailwind class lists were delegated to `tailwind-class-formatter`.
 - `.ts` files do not contain JSX, and `.tsx` files are used when JSX is present.
-- TypeScript source imports omit `.ts` and `.tsx` extensions.
+- TypeScript source imports omit `.ts` and `.tsx` extensions, except for native-loaded Vite/Storybook config imports
+  that require explicit `.ts` paths.
 - Markdown fence language tags describe valid standalone syntax; partial attributes and fragments use `text`.
 - Export style matches file shape.
 - Multiline declarations are visually separated when needed for scanning.

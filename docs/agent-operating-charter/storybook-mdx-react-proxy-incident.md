@@ -12,6 +12,9 @@
   addon-docs to a local proxy module that re-exports `MDXProvider` and `useMDXComponents` from `@mdx-js/react`. This is
   intentionally Storybook-only, should not affect the publishable library build, and is preferable to patching
   `node_modules`, disabling Docs, removing the custom Docs container, or adding runtime monkey patches.
+- Register the plugin through the concrete import `./build-plugins/mdx-react-proxy-plugin.ts` in
+  `.storybook/vite.config.ts`. The explicit `.ts` extension is required for Vite's native config loader; do not restore
+  an extensionless directory-barrel import here.
 - Keep the MDX React proxy split into two files. The plugin file is Node/Vite build-time code; the proxy file is the
   browser-runtime module dynamically imported by Storybook Docs. Do not point the rewrite at the plugin module or merge
   the files just to reduce count, because that mixes build-time imports such as `node:url` and `vite` with the browser
